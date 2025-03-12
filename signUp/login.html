@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>Login - EcoLiving</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(76, 175, 80, 0.05)), 
+                              url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+          }
+    
+          .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+          }
+        
+        .container {
+            display: flex;
+            width: 900px;
+            max-width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 
+                        0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .welcome-side {
+            width: 40%;
+            background: linear-gradient(135deg, #2E7D32, #4CAF50);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .welcome-side::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/500/800');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.2;
+            z-index: 1;
+        }
+        
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .welcome-side h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .welcome-side p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .eco-features {
+            margin-top: 20px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        
+        .login-side {
+            width: 60%;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #2E7D32;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .logo-text {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2E7D32;
+        }
+        
+        h2 {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+            font-size: 15px;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            transition: color 0.3s;
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 14px 14px 45px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #2E7D32;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+        }
+        
+        input:focus + .input-icon {
+            color: #2E7D32;
+        }
+        
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+        
+        .forgot-password a {
+            color: #2E7D32;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .forgot-password a:hover {
+            color: #1b5e20;
+            text-decoration: underline;
+        }
+        
+        button {
+            background-color: #2E7D32;
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
+        }
+        
+        button:hover {
+            background-color: #1b5e20;
+        }
+        
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .divider-line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #ddd;
+        }
+        
+        .divider-text {
+            padding: 0 15px;
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            background-color: #f1f1f1;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        .social-btn:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-2px);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: auto;
+            color: #666;
+            font-size: 15px;
+        }
+        
+        .register-link a {
+            color: #2E7D32;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .register-link a:hover {
+            color: #1b5e20;
+            text-decoration: underline;
+        }
+        
+        .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .remember-me input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                max-width: 450px;
+            }
+            
+            .welcome-side {
+                width: 100%;
+                padding: 30px;
+                display: none;
+            }
+            
+            .login-side {
+                width: 100%;
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-side">
+            <div class="welcome-content">
+                <h1>Welcome Back toEcoSphere </h1>
+                <p>Your source for eco-friendly project ideas and sustainable living inspiration.</p>
+                
+                <div class="eco-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div>Access to 100+ DIY eco projects</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div>Save your favorite sustainable ideas</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✓</div>
+                        <div>Share your own green living tips</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-side">
+            <div class="logo">
+                <i class="fas fa-leaf"></i>
+                EcoSphere
+            </div>
+            
+            <h2>Login to Your Account</h2>
+            <p class="subtitle">Please enter your credentials to continue</p>
+            
+            <form>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        <div class="input-icon">✉️</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <div class="input-icon">🔒</div>
+                    </div>
+                </div>
+                
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember" style="display: inline; margin-bottom: 0;">Remember me</label>
+                </div>
+                
+                <div class="forgot-password">
+                    <a href="#">Forgot password?</a>
+                </div>
+                
+                <a href="../index.html">
+                    <button type="button">Login</button>
+                </a>
+                
+            </form>
+            
+            <div class="login-divider">
+                <div class="divider-line"></div>
+                <div class="divider-text">or continue with</div>
+                <div class="divider-line"></div>
+            </div>
+            
+            <div class="social-login">
+                <div class="social-btn">G</div>
+                <div class="social-btn">f</div>
+                <div class="social-btn">in</div>
+            </div>
+            
+            <p class="register-link">Don't have an account? <a href="../signUp/signUp.html">Sign up</a></p>
+        </div>
+    </div>
+</body>
+</html>

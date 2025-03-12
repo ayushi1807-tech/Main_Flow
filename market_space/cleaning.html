@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>Eco-Friendly Cleaning Supplies </title>
+    <style>
+      :root {
+        --primary-color: #1b5e20;
+        --secondary-color: #388e3c;
+        --accent-color: #4caf50;
+        --light-color: #c8e6c9;
+        --dark-color: #033605;
+        --text-color: #333;
+        --text-light: #666;
+        --white: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+    }
+    
+    .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav-links li {
+        position: relative;
+    }
+    
+    .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        color: var(--primary-color);
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .dropdown-content a {
+        color: var(--text-color);
+        padding: 12px 16px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .dropdown-content a:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .login-btn {
+        background-color: var(--primary-color);
+        color: var(--white) !important;
+        padding: 10px 20px !important;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold !important;
+        transition: all 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-btn:hover {
+        background-color: var(--dark-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 50px 10% 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: white;
+        position: relative;
+        overflow: hidden;
+        padding: 0 20px;
+        background-color: #1B5E20;
+    }
+    
+    .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(29, 109, 67, 0.9) 0%, rgba(46, 125, 50, 0.8) 100%);
+        z-index: -1;
+    }
+    
+    .hero-content {
+        max-width: 800px;
+        z-index: 1;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        font-weight: 800;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .hero-cta {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+    }
+    
+    .primary-button {
+        background-color: white;
+        color: #2E7D32;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .primary-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .secondary-button {
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+        padding: 15px 30px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .secondary-button:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateY(-3px);
+    }
+    
+    /* Benefits Section */
+    .benefits {
+        padding: 100px 0;
+        background-color: white;
+    }
+    
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        color: #2E7D32;
+        margin-bottom: 15px;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .section-title:after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: #2E7D32;
+    }
+    
+    .section-description {
+        max-width: 700px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+        color: #666;
+    }
+    
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-top: 60px;
+    }
+    
+    .benefit-card {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .benefit-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+    
+    .benefit-image {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .benefit-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #2E7D32;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .benefit-content {
+        padding: 25px;
+    }
+    
+    .benefit-title {
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        color: #2E7D32;
+    }
+    
+    /* Products Section */
+    .products-section {
+        padding: 100px 0;
+        background-color: #f8f9fa;
+    }
+    
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+    }
+    
+    .product-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+    
+    .product-image {
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .product-tag {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        background-color: #2E7D32;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .product-content {
+        padding: 25px;
+    }
+    
+    .product-title {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+        color: #2E7D32;
+    }
+    
+    .product-description {
+        color: #666;
+        margin-bottom: 20px;
+    }
+    
+    .product-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+    }
+    
+    .product-price {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #333;
+    }
+    
+    .product-button {
+        background-color: #2E7D32;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 0.9rem;
+    }
+    
+    .product-button:hover {
+        background-color: #1B5E20;
+    }
+    
+    /* Testimonials Section */
+    .testimonials {
+        padding: 100px 0;
+        background-color: white;
+    }
+    
+    .testimonials-container {
+        display: flex;
+        gap: 30px;
+        margin-top: 50px;
+        overflow-x: auto;
+        padding: 20px 0;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+    }
+    
+    .testimonials-container::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .testimonial-card {
+        flex: 0 0 350px;
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        scroll-snap-align: start;
+    }
+    
+    .testimonial-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+        background-color: #e0e0e0;
+    }
+    
+    .testimonial-author {
+        font-weight: 600;
+    }
+    
+    .testimonial-role {
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .testimonial-content {
+        font-style: italic;
+        color: #555;
+        line-height: 1.7;
+    }
+    
+    .testimonial-rating {
+        margin-top: 15px;
+        color: #FFD700;
+    }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        EcoSphere
+      </div>
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+          <div class="dropdown-content">
+            <a href="../eco-tips/energy_saving.html"
+              ><i class="fas fa-lightbulb"></i> Energy Saving</a
+            >
+            <a href="../eco-tips/food_choices.html"
+              ><i class="fas fa-carrot"></i> Sustainable Food Choices</a
+            >
+            <a href="../eco-tips/zero_waste.html"
+              ><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a
+            >
+            <a href="../eco-tips/water.html"
+              ><i class="fas fa-tint"></i> Water Conservation</a
+            >
+            <a href="../eco-tips/Transportation.html"
+              ><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="market_space/marketSpace.html" class="dropbtn"
+            >Zero-Waste Marketplace</a
+          >
+          <div class="dropdown-content">
+            <a href="kitchen.html"
+              ><i class="fas fa-utensils"></i> Reusable Kitchen Products</a
+            >
+            <a href="fashion.html"
+              ><i class="fas fa-tshirt"></i> Sustainable Fashion</a
+            >
+            <a href="cleaning.html"
+              ><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+              Supplies</a
+            >
+            <a href="solar.html"
+              ><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="../community/" class="dropbtn">Community</a>
+          <div class="dropdown-content">
+            <a href="../community/discussion_forum.html"
+              ><i class="fas fa-comments"></i> Discussion Forum</a
+            >
+            <a href="../community/eco_challanges.html"
+              ><i class="fas fa-trophy"></i> User Eco-Challenges</a
+            >
+            <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+            <a href="../community/Events _Webinars.html"
+              ><i class="fas fa-calendar-alt"></i> Events & Webinars</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#blog" class="dropbtn">Blog</a>
+          <div class="dropdown-content">
+            <a href="../blog/green_living.html"
+              ><i class="fas fa-seedling"></i> Green Living Guides</a
+            >
+            <a href="../blog/latest_sustainability.html"
+              ><i class="fas fa-newspaper"></i> Latest Sustainability News</a
+            >
+            <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+          </div>
+        </li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li>
+          <a href="../signUp/login.html" class="login-btn"
+            ><i class="fas fa-user"></i> Login</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="/api/placeholder/1920/1080" alt="Hero Background" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.3;">
+        </div>
+        <div class="hero-content">
+            <h1>Eco-Friendly Cleaning Supplies</h1>
+            <p>Discover sustainable cleaning products that are better for your home, your health, and our planet. Join the movement towards a cleaner, greener future.</p>
+            <div class="hero-cta">
+                <button class="primary-button">Explore Products</button>
+                <button class="secondary-button">Learn More</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Eco-Friendly Cleaning?</h2>
+                <p class="section-description">Switching to natural cleaning products helps reduce pollution, protect your health, and create a sustainable future for generations to come.</p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-image">
+                        <img src="images/1st.jpg" alt="Health Benefits" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="benefit-icon">♥</div>
+                    </div>
+                    <div class="benefit-content">
+                        <h3 class="benefit-title">Better for Health</h3>
+                        <p>Traditional cleaning products often contain harsh chemicals that can cause respiratory issues, skin irritations, and other health problems. Eco-friendly alternatives use natural ingredients that are gentler on your body.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-image">
+                        <img src="images/2nd.jpg" alt="Environmental Impact" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="benefit-icon">🌎</div>
+                    </div>
+                    <div class="benefit-content">
+                        <h3 class="benefit-title">Reduced Environmental Impact</h3>
+                        <p>Conventional cleaning products can pollute waterways and harm aquatic life. Eco-friendly cleaners are biodegradable and don't leave harmful residues in the environment.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-image">
+                        <img src="images/3rd.jpg" alt="Cost Savings" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="benefit-icon">💰</div>
+                    </div>
+                    <div class="benefit-content">
+                        <h3 class="benefit-title">Cost-Effective Solutions</h3>
+                        <p>Many eco-friendly products are concentrated, refillable, or multi-purpose, making them more economical in the long run. Simple ingredients like vinegar and baking soda can replace multiple cleaning products.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Top Eco-Friendly Cleaning Products</h2>
+                <p class="section-description">Our curated selection of sustainable cleaning supplies helps you maintain a spotless home while protecting the planet.</p>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/baboo.jpg" alt="Bamboo Brushes" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="product-tag">Best Seller</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Bamboo Cleaning Brushes</h3>
+                        <p class="product-description">Durable and biodegradable brushes made from sustainable bamboo. Perfect for dishes, vegetables, and general cleaning around the home.</p>
+                        <div class="product-meta">
+                            <div class="product-price">$12.99</div>
+                            <button class="product-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/soap.jpg" alt="Organic Soap" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="product-tag">Organic</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Organic Cleaning Soaps</h3>
+                        <p class="product-description">Plant-based soaps with no harmful chemicals. Gentle yet effective for all your cleaning needs, leaving your home fresh and toxin-free.</p>
+                        <div class="product-meta">
+                            <div class="product-price">$8.99</div>
+                            <button class="product-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/bottle.jpg" alt="Refillable Bottles" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="product-tag">Eco-Friendly</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Refillable Spray Bottles</h3>
+                        <p class="product-description">Reduce plastic waste with these stylish, reusable glass spray bottles. Perfect for homemade cleaning solutions or our concentrated refills.</p>
+                        <div class="product-meta">
+                            <div class="product-price">$15.99</div>
+                            <button class="product-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/clothes.jpg" alt="Microfiber Cloths" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="product-tag">New</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Reusable Microfiber Cloths</h3>
+                        <p class="product-description">Ultra-absorbent microfiber cloths that clean effectively with just water. Machine washable and reusable for years, replacing hundreds of paper towels.</p>
+                        <div class="product-meta">
+                            <div class="product-price">$9.99</div>
+                            <button class="product-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/cleaner.jpg" alt="Multi-Purpose Cleaner" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="product-tag">All Natural</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">All-Purpose Natural Cleaner</h3>
+                        <p class="product-description">One bottle for all your cleaning needs. This powerful plant-based formula tackles kitchens, bathrooms, and all surfaces while being gentle on the planet.</p>
+                        <div class="product-meta">
+                            <div class="product-price">$11.99</div>
+                            <button class="product-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="images/compostable.jpg" alt="Compostable Sponges" style="width: 100%; height: 100%; object-fit: cover;">
+                        <div class="product-tag">Plastic-Free</div>
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">Compostable Cleaning Sponges</h3>
+                        <p class="product-description">Made from natural plant fibers, these sponges are 100% compostable when worn out. Effective scrubbing power without microplastics.</p>
+                        <div class="product-meta">
+                            <div class="product-price">$6.99</div>
+                            <button class="product-button">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Customer Success Stories</h2>
+                <p class="section-description">Hear from people who have made the switch to eco-friendly cleaning products.</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="../1st.jpeg" alt="Sarah J." style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div>
+                            <div class="testimonial-author">Sarah J.</div>
+                            <div class="testimonial-role">Busy Parent</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">"I was worried eco-friendly products wouldn't clean as well as my old chemical cleaners. I was completely wrong! My home is spotless, and I don't worry about my kids being exposed to harsh chemicals anymore."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="../3rd.jpeg" alt="Michael T." style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div>
+                            <div class="testimonial-author">Michael T.</div>
+                            <div class="testimonial-role">Apartment Dweller</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">"The all-purpose cleaner is incredible! I used to have 6 different products under my sink. Now I have one bottle that does it all, saving me money and space in my small apartment."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="../2nd.jpeg" alt="Elena R." style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div>
+                            <div class="testimonial-author">Elena R.</div>
+                            <div class="testimonial-role">Conscious Consumer</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">"I love that these products come in minimal, recyclable packaging. The refill options have dramatically reduced the amount of plastic waste our household produces each month."</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="../4th.jpeg" alt="David L." style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        </div>
+                        <div>
+                            <div class="testimonial-author">David L.</div>
+                            <div class="testimonial-role">Allergy Sufferer</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">"For years, conventional cleaning products triggered my allergies and asthma. Since switching to these natural products, I can breathe easier while cleaning, and my home still sparkles!"</p>
+                    <div class="testimonial-rating">★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About EcoSphere</h3>
+          <p>
+            EcoSphere is dedicated to promoting sustainable living through
+            educational resources, community engagement, and practical tips for
+            reducing environmental impact.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog/green_living.html">Blog</a></li>
+            <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Eco-Calculators</a></li>
+            <li><a href="#">Sustainability Guides</a></li>
+            <li><a href="#">Energy Saving Tips</a></li>
+            <li><a href="#">Zero-Waste Living</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+            </li>
+            <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

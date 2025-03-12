@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Sustainable Transportation</title>
+    <style>
+        :root {
+            --primary-color: #1B5E20;
+            --secondary-color: #388E3C;
+            --accent-color: #4CAF50;
+            --light-color: #C8E6C9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            display: block;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .login-btn {
+            background-color: var(--primary-color);
+            color: var(--white) !important;
+            padding: 10px 20px !important;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold !important;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 50px 10% 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1920/1080') center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            background-color: #2E7D32;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 10px;
+            border: 2px solid transparent;
+        }
+        
+        .hero-btn:hover {
+            background-color: transparent;
+            border: 2px solid white;
+            transform: translateY(-3px);
+        }
+        
+        .hero-btn.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        .hero-btn.secondary:hover {
+            background-color: white;
+            color: #2E7D32;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 20px;
+            background-color: white;
+        }
+        
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        
+        .stat-item {
+            text-align: center;
+            margin: 20px;
+            width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        /* Transport Section */
+        .transport-section {
+            padding: 80px 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+        }
+        
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-heading h2 {
+            font-size: 2.5rem;
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+        
+        .section-heading p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .transport-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .transport-option {
+            background: white;
+            padding: 30px;
+            margin: 15px;
+            border-radius: 15px;
+            width: 280px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .transport-option:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .transport-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #2E7D32;
+        }
+        
+        .transport-option img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .transport-option:hover img {
+            transform: rotate(10deg);
+        }
+        
+        .transport-option h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2E7D32;
+        }
+        
+        .transport-option p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .learn-more {
+            color: #2E7D32;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+        
+        .learn-more:hover {
+            border-bottom: 2px solid #2E7D32;
+        }
+        
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 20px;
+            background-color: white;
+        }
+        
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .benefits-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .benefits-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .benefits-content {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .benefits-content h2 {
+            font-size: 2.5rem;
+            color: #2E7D32;
+            margin-bottom: 20px;
+        }
+        
+        .benefits-content p {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-icon {
+            background-color: #e8f5e9;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: #2E7D32;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .benefit-text h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #2E7D32;
+        }
+        
+        /* Pledge Section */
+        .pledge-section {
+            background: linear-gradient(rgba(46, 125, 50, 0.9), rgba(46, 125, 50, 0.9)), url('/api/placeholder/1920/1080') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .pledge-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .pledge-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .pledge-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .pledge-btn {
+            background-color: #FFC107;
+            color: #333;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .pledge-btn:hover {
+            background-color: transparent;
+            border: 2px solid #FFC107;
+            color: #FFC107;
+            transform: translateY(-5px);
+        }
+        
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 80px 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            color: #e8f5e9;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            color: #555;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #2E7D32;
+        }
+        
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            EcoSphere
+        </div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+                <div class="dropdown-content">
+                    <a href="energy_saving.html"><i class="fas fa-lightbulb"></i> Energy Saving</a>
+                    <a href="food_choices.html"><i class="fas fa-carrot"></i> Sustainable Food Choices</a>
+                    <a href="zero_waste.html"><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a>
+                    <a href="water.html"><i class="fas fa-tint"></i> Water Conservation</a>
+                    <a href="Transportation.html"><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="market_space/marketSpace.html" class="dropbtn">Zero-Waste Marketplace</a>
+                <div class="dropdown-content">
+                    <a href="../market_space/kitchen.html"><i class="fas fa-utensils"></i> Reusable Kitchen Products</a>
+                    <a href="../market_space/fashion.html"><i class="fas fa-tshirt"></i> Sustainable Fashion</a>
+                    <a href="../market_space/cleaning.html"><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning Supplies</a>
+                    <a href="../market_space/solar.html"><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#community" class="dropbtn">Community</a>
+                <div class="dropdown-content">
+                    <a href="../community/discussion_forum.html"><i class="fas fa-comments"></i> Discussion Forum</a>
+                    <a href="../community/eco_challanges.html"><i class="fas fa-trophy"></i> User Eco-Challenges</a>
+                    <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+                    <a href="../community/Events _Webinars.html"><i class="fas fa-calendar-alt"></i> Events & Webinars</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#blog" class="dropbtn">Blog</a>
+                <div class="dropdown-content">
+                    <a href="../blog/green_living.html"><i class="fas fa-seedling"></i> Green Living Guides</a>
+                    <a href="../blog/latest_sustainability.html"><i class="fas fa-newspaper"></i> Latest Sustainability News</a>
+                    <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+                </div>
+            </li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="../signUp/login.html" class="login-btn"><i class="fas fa-user"></i> Login</a></li>
+        </ul>
+    </nav>
+
+<section class="hero">
+        <div class="hero-content">
+            <h1>Green Travel: Moving Towards a Sustainable Future</h1>
+            <p>Discover eco-friendly ways to commute while saving the planet and creating a better tomorrow for everyone.</p>
+            <div>
+                <a href="#options" class="hero-btn">Explore Options</a>
+                <a href="#pledge" class="hero-btn secondary">Take the Pledge</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">27%</div>
+                <div class="stat-text">of global CO₂ emissions come from transportation</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">80%</div>
+                <div class="stat-text">reduction in carbon footprint by cycling vs driving</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5x</div>
+                <div class="stat-text">more energy efficient is public transport than private cars</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">60%</div>
+                <div class="stat-text">fewer emissions with electric vehicles</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transport Options Section -->
+    <section id="options" class="transport-section">
+        <div class="section-heading">
+            <h2>Sustainable Transportation Options</h2>
+            <p>Explore these eco-friendly alternatives to traditional transportation and make a positive impact on our environment.</p>
+        </div>
+        <div class="transport-container">
+            <div class="transport-option">
+                <img src="images/cycle.jpg" alt="Cycling">
+                <h3>Cycling</h3>
+                <p>Save the environment and stay fit by cycling instead of driving. Zero emissions and great for your health!</p>
+                <a href="#" class="learn-more">Learn more →</a>
+            </div>
+            <div class="transport-option">
+                <img src="images/public_transport.jpg" alt="Public Transport">
+                <h3>Public Transport</h3>
+                <p>Reduce emissions by using buses, trains, and metro services. One bus can replace dozens of cars!</p>
+                <a href="#" class="learn-more">Learn more →</a>
+            </div>
+            <div class="transport-option">
+                <img src="images/electric.jpg" alt="Electric Vehicles">
+                <h3>Electric Vehicles</h3>
+                <p>Switch to EVs to lower carbon footprints and use renewable energy for a cleaner driving experience.</p>
+                <a href="#" class="learn-more">Learn more →</a>
+            </div>
+            <div class="transport-option">
+                <img src="images/pooling.jpg" alt="Carpooling">
+                <h3>Carpooling</h3>
+                <p>Share rides and reduce fuel consumption with carpooling. Connect with others going your way!</p>
+                <a href="#" class="learn-more">Learn more →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="benefits-container">
+            <div class="benefits-image">
+                <img src="images/benifits.webp" alt="Green transportation benefits">
+            </div>
+            <div class="benefits-content">
+                <h2>Benefits of Green Transportation</h2>
+                <p>Switching to sustainable transportation options offers numerous benefits for you and our planet.</p>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🌿</div>
+                    <div class="benefit-text">
+                        <h4>Reduced Carbon Footprint</h4>
+                        <p>Lower your personal impact on climate change by choosing eco-friendly transportation methods.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">💰</div>
+                    <div class="benefit-text">
+                        <h4>Cost Savings</h4>
+                        <p>Save money on fuel, parking, maintenance, and other costs associated with traditional transportation.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">❤️</div>
+                    <div class="benefit-text">
+                        <h4>Improved Health</h4>
+                        <p>Active transportation like walking and cycling improves physical fitness and mental wellbeing.</p>
+                    </div>
+                </div>
+                
+                <div class="benefit-item">
+                    <div class="benefit-icon">🏙️</div>
+                    <div class="benefit-text">
+                        <h4>Better Communities</h4>
+                        <p>Sustainable transportation creates quieter, safer, and more livable communities with cleaner air.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pledge Section -->
+    <section id="pledge" class="pledge-section">
+        <div class="pledge-container">
+            <h2>Join the Green Travel Movement</h2>
+            <p>Take a pledge to adopt eco-friendly transportation for a greener tomorrow. Every journey matters, and your choice makes a difference.</p>
+            <a href="#" class="pledge-btn">Take the Pledge</a>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="section-heading">
+                <h2>What People Are Saying</h2>
+                <p>Hear from others who have embraced sustainable transportation options in their daily lives.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Switching to cycling for my commute was the best decision I've made. I've lost weight, saved money, and feel good about reducing my carbon footprint.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="images/cycle.jpg" alt="Sarah J.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Ayushi P.</h4>
+                            <p>Daily Cyclist, 2 years</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">Our family carpooling arrangement has saved us hundreds in fuel costs and created strong community bonds with other parents.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="images/yash.jpeg" alt="Yash P.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Yash P.</h4>
+                            <p>Carpooling Advocate</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <p class="testimonial-text">I was hesitant about electric vehicles, but after making the switch, I can't imagine going back. It's quieter, cleaner, and costs less to maintain.</p>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <img src="images/kesh.jpeg" alt="keshvi P.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Keshvi P.</h4>
+                            <p>EV Owner, 3 years</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About EcoSphere</h3>
+                <p>EcoSphere is dedicated to promoting sustainable living through educational resources, community engagement, and practical tips for reducing environmental impact.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../blog/green_living.html">Blog</a></li>
+                    <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Eco-Calculators</a></li>
+                    <li><a href="#">Sustainability Guides</a></li>
+                    <li><a href="#">Energy Saving Tips</a></li>
+                    <li><a href="#">Zero-Waste Living</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City</li>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+</ul>
+</div>
+</div>
+</footer>
+</body>
+</html>

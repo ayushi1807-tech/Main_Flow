@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Food-Choices</title>
+    <style>
+        :root {
+            --primary-color: #1B5E20;
+            --secondary-color: #388E3C;
+            --accent-color: #4CAF50;
+            --light-color: #C8E6C9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            display: block;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .login-btn {
+            background-color: var(--primary-color);
+            color: var(--white) !important;
+            padding: 10px 20px !important;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold !important;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero-food {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-food h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-food p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-bottom: 2px solid #a5d6a7;
+            padding-bottom: 10px;
+        }
+        
+        .why-sustainable {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .why-sustainable p {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .benefit-card {
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .benefit-icon {
+            height: 150px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .benefit-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
+        .benefit-card h3 {
+            margin-bottom: 10px;
+            color: #2e7d32;
+        }
+        
+        .food-tips {
+            position: relative;
+        }
+        
+        .food-tips ul {
+            list-style: none;
+        }
+        
+        .food-tips li {
+            background-color: #f1f8e9;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .food-tips li:hover {
+            transform: translateX(10px);
+            background-color: #e8f5e9;
+        }
+        
+        .food-tips li span {
+            font-size: 1.5rem;
+            margin-right: 15px;
+            color: #2e7d32;
+        }
+        
+        .tips-image {
+            position: absolute;
+            right: -60px;
+            bottom: -60px;
+            width: 200px;
+            height: 200px;
+            opacity: 0.2;
+            z-index: 1;
+        }
+        
+        .recipes {
+            text-align: center;
+        }
+        
+        .recipes p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .recipe-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .recipe-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .recipe-card:hover .recipe-image img {
+            transform: scale(1.1);
+        }
+        
+        .recipe-content {
+            padding: 20px;
+        }
+        
+        .recipe-content h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+        
+        .eco-fact {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: white;
+            padding: 50px 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+        }
+        
+        .eco-fact h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .eco-fact p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 50px 10% 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        
+        
+        @media (max-width: 768px) {
+            .hero-food h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-food p {
+                font-size: 1.2rem;
+            }
+            
+            section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .tips-image {
+                display: none;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            EcoSphere
+        </div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+                <div class="dropdown-content">
+                    <a href="energy_saving.html"><i class="fas fa-lightbulb"></i> Energy Saving</a>
+                    <a href="food_choices.html"><i class="fas fa-carrot"></i> Sustainable Food Choices</a>
+                    <a href="zero_waste.html"><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a>
+                    <a href="water.html"><i class="fas fa-tint"></i> Water Conservation</a>
+                    <a href="Transportation.html"><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="market_space/marketSpace.html" class="dropbtn">Zero-Waste Marketplace</a>
+                <div class="dropdown-content">
+                    <a href="../market_space/kitchen.html"><i class="fas fa-utensils"></i> Reusable Kitchen Products</a>
+                    <a href="../market_space/fashion.html"><i class="fas fa-tshirt"></i> Sustainable Fashion</a>
+                    <a href="../market_space/cleaning.html"><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning Supplies</a>
+                    <a href="../market_space/solar.html"><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#community" class="dropbtn">Community</a>
+                <div class="dropdown-content">
+                    <a href="../community/discussion_forum.html"><i class="fas fa-comments"></i> Discussion Forum</a>
+                    <a href="../community/eco_challanges.html"><i class="fas fa-trophy"></i> User Eco-Challenges</a>
+                    <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+                    <a href="../community/Events _Webinars.html"><i class="fas fa-calendar-alt"></i> Events & Webinars</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#blog" class="dropbtn">Blog</a>
+                <div class="dropdown-content">
+                    <a href="../blog/green_living.html"><i class="fas fa-seedling"></i> Green Living Guides</a>
+                    <a href="../blog/latest_sustainability.html"><i class="fas fa-newspaper"></i> Latest Sustainability News</a>
+                    <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+                </div>
+            </li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="../signUp/login.html" class="login-btn"><i class="fas fa-user"></i> Login</a></li>
+        </ul>
+    </nav>
+    <header class="hero-food">
+        <div class="container">
+            <h1>Eat Green, Live Better</h1>
+            <p>Discover how sustainable food choices can protect the planet and improve your health.</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="why-sustainable">
+            <h2>Why Eat Sustainably?</h2>
+            <p>Making mindful food choices helps reduce environmental impact, supports local farmers, and improves nutrition while ensuring a healthier future for our planet.</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <img src="images/redution.jpg" alt="Carbon footprint reduction">
+                    </div>
+                    <h3>Reduces Carbon Footprint</h3>
+                    <p>Sustainable eating can reduce greenhouse gas emissions by up to 30%.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <img src="images/water.jpg" alt="Water conservation">
+                    </div>
+                    <h3>Conserves Water</h3>
+                    <p>Plant-based diets require significantly less water than meat-heavy diets.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <img src="images/improve.jpg" alt="Health improvement">
+                    </div>
+                    <h3>Improves Health</h3>
+                    <p>Sustainable eating patterns are linked to better health outcomes.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="food-tips">
+            <h2>Key Sustainable Food Practices</h2>
+            <ul>
+                <li><span>🥕</span> Eat more plant-based foods and reduce meat consumption, especially red meat.</li>
+                <li><span>🌍</span> Buy locally grown and seasonal produce to reduce transportation emissions.</li>
+                <li><span>🥡</span> Reduce food waste by planning meals, storing leftovers properly, and composting.</li>
+                <li><span>🚜</span> Support organic farming and choose products with eco-friendly packaging.</li>
+                <li><span>🐟</span> Select sustainably sourced seafood and consider the environmental impact.</li>
+                <li><span>🛒</span> Bring reusable bags and containers when shopping to minimize waste.</li>
+            </ul>
+            <div class="tips-image">
+                <img src="/api/placeholder/200/200" alt="Sustainable food practices">
+            </div>
+        </section>
+        
+        <div class="eco-fact">
+            <h3>Did You Know?</h3>
+            <p>If every American skipped meat for just one day a week, it would be equivalent to taking 7.6 million cars off the road.</p>
+        </div>
+        
+        <section class="recipes">
+            <h2>Eco-Friendly Recipes</h2>
+            <p>Try these delicious, sustainable meals that are good for you and the planet:</p>
+            
+            <div class="recipe-grid">
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="images/bowl.jpg" alt="Quinoa & Roasted Veggie Bowl">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Quinoa & Roasted Veggie Bowl</h3>
+                        <p>A nutrient-packed meal with seasonal vegetables and protein-rich quinoa.</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="images/curry.jpg" alt="Lentil & Chickpea Curry">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Lentil & Chickpea Curry</h3>
+                        <p>A hearty, plant-based curry that's full of flavor and completely sustainable.</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="images/avacado.jpg"Avocado & Black Bean Wrap">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Avocado & Black Bean Wrap</h3>
+                        <p>A quick lunch option using plant proteins and locally sourced vegetables.</p>
+                    </div>
+                </div>
+                
+                <div class="recipe-card">
+                    <div class="recipe-image">
+                        <img src="images/smoothy.jpg" alt="Zero-Waste Smoothie">
+                    </div>
+                    <div class="recipe-content">
+                        <h3>Zero-Waste Smoothie</h3>
+                        <p>Use fruit that's slightly past its prime to create a delicious, waste-free treat.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Seasonal Eating Guide</h2>
+            <div style="display: flex; align-items: center; gap: 30px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 300px;">
+                    <p>Eating seasonally means choosing foods that are naturally grown and harvested during that time of year in your region. This practice reduces the energy needed for transportation and storage while providing fresher, more nutritious food.</p>
+                    <p style="margin-top: 15px;">Seasonal foods often cost less and taste better since they're harvested at peak ripeness. Check your local farmers' market to discover what's in season now!</p>
+                </div>
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="images/seasonal.webp" alt="Seasonal produce" style="width: 100%; border-radius: 8px;">
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About EcoSphere</h3>
+                <p>EcoSphere is dedicated to promoting sustainable living through educational resources, community engagement, and practical tips for reducing environmental impact.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../blog/green_living.html">Blog</a></li>
+                    <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Eco-Calculators</a></li>
+                    <li><a href="#">Sustainability Guides</a></li>
+                    <li><a href="#">Energy Saving Tips</a></li>
+                    <li><a href="#">Zero-Waste Living</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City</li>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+</body>
+</html>

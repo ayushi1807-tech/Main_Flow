@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>Reusable Kitchen Products</title>
+    <style>
+      :root {
+        --primary-color: #1b5e20;
+        --secondary-color: #388e3c;
+        --accent-color: #4caf50;
+        --light-color: #c8e6c9;
+        --dark-color: #033605;
+        --text-color: #333;
+        --text-light: #666;
+        --white: #fff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+    }
+    
+    .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav-links li {
+        position: relative;
+    }
+    
+    .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        color: var(--primary-color);
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .dropdown-content a {
+        color: var(--text-color);
+        padding: 12px 16px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .dropdown-content a:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .login-btn {
+        background-color: var(--primary-color);
+        color: var(--white) !important;
+        padding: 10px 20px !important;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold !important;
+        transition: all 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-btn:hover {
+        background-color: var(--dark-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 50px 10% 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .hero {
+        background: linear-gradient(rgba(46, 125, 50, 0.8), rgba(46, 125, 50, 0.9)),
+                    url('/api/placeholder/1200/400') center/cover no-repeat;
+        color: var(--white);
+        text-align: center;
+        padding: 80px 20px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .hero p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto 30px;
+    }
+    
+    .cta-btn {
+        display: inline-block;
+        background-color: var(--accent-color);
+        color: var(--primary-color);
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cta-btn:hover {
+        background-color: #FFA000;
+        transform: translateY(-3px);
+    }
+    
+    .about-section {
+        padding: 60px 5%;
+        text-align: center;
+        background-color: var(--white);
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 3px;
+        background-color: var(--accent-color);
+        bottom: -10px;
+        left: 25%;
+    }
+    
+    .about-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .products-section {
+        padding: 60px 5%;
+        background-color: var(--light-bg);
+    }
+    
+    .section-intro {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    
+    .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .product-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .product-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    
+    .product-info {
+        padding: 20px;
+    }
+    
+    .product-info h3 {
+        color: var(--primary-color);
+        margin-bottom: 10px;
+    }
+    
+    .product-info p {
+        margin-bottom: 15px;
+        color: #666;
+    }
+    
+    .price {
+        font-weight: bold;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        display: block;
+    }
+    
+    .product-btn {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+    }
+    
+    .product-btn:hover {
+        background-color: var(--secondary-color);
+    }
+    
+    .features-section {
+        padding: 60px 5%;
+        background-color: var(--white);
+        text-align: center;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+    
+    .feature-card {
+        padding: 30px 20px;
+        background-color: var(--light-bg);
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+    
+    .feature-card i {
+        color: var(--accent-color);
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+        color: var(--primary-color);
+        margin-bottom: 15px;
+    }
+    
+    .testimonials-section {
+        padding: 60px 5%;
+        background: linear-gradient(rgba(129, 199, 132, 0.1), rgba(129, 199, 132, 0.2));
+        text-align: center;
+    }
+    
+    .testimonials-container {
+        max-width: 800px;
+        margin: 40px auto 0;
+    }
+    
+    .testimonial {
+        background-color: var(--white);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+    }
+    
+    .testimonial-text {
+        font-style: italic;
+        margin-bottom: 20px;
+        position: relative;
+    }
+    
+    .testimonial-text::before,
+    .testimonial-text::after {
+        content: '"';
+        color: var(--secondary-color);
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    
+    .testimonial-author {
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+    
+    .newsletter-section {
+        padding: 60px 5%;
+        background-color: var(--primary-color);
+        color: var(--white);
+        text-align: center;
+    }
+    
+    .newsletter-form {
+        max-width: 500px;
+        margin: 30px auto 0;
+        display: flex;
+    }
+    
+    .newsletter-input {
+        flex-grow: 1;
+        padding: 12px 15px;
+        border: none;
+        border-radius: 30px 0 0 30px;
+        font-size: 1rem;
+    }
+    
+    .newsletter-btn {
+        background-color: var(--accent-color);
+        color: var(--primary-color);
+        border: none;
+        padding: 0 25px;
+        border-radius: 0 30px 30px 0;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .newsletter-btn:hover {
+        background-color: #FFA000;
+    }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        EcoSphere
+      </div>
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+          <div class="dropdown-content">
+            <a href="../eco-tips/energy_saving.html"
+              ><i class="fas fa-lightbulb"></i> Energy Saving</a
+            >
+            <a href="../eco-tips/food_choices.html"
+              ><i class="fas fa-carrot"></i> Sustainable Food Choices</a
+            >
+            <a href="../eco-tips/zero_waste.html"
+              ><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a
+            >
+            <a href="../eco-tips/water.html"
+              ><i class="fas fa-tint"></i> Water Conservation</a
+            >
+            <a href="../eco-tips/Transportation.html"
+              ><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="market_space/marketSpace.html" class="dropbtn"
+            >Zero-Waste Marketplace</a
+          >
+          <div class="dropdown-content">
+            <a href="kitchen.html"
+              ><i class="fas fa-utensils"></i>Reusable Kitchen Products</a
+            >
+            <a href="fashion.html"
+              ><i class="fas fa-tshirt"></i> Sustainable Fashion</a
+            >
+            <a href="cleaning.html"
+              ><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+              Supplies</a
+            >
+            <a href="solar.html"
+              ><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#community" class="dropbtn">Community</a>
+          <div class="dropdown-content">
+            <a href="../community/discussion_forum.html"
+              ><i class="fas fa-comments"></i> Discussion Forum</a
+            >
+            <a href="../community/eco_challanges.html"
+              ><i class="fas fa-trophy"></i> User Eco-Challenges</a
+            >
+            <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+            <a href="../community/Events _Webinars.html"
+              ><i class="fas fa-calendar-alt"></i> Events & Webinars</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#blog" class="dropbtn">Blog</a>
+          <div class="dropdown-content">
+            <a href="../blog/green_living.html"
+              ><i class="fas fa-seedling"></i> Green Living Guides</a
+            >
+            <a href="../blog/latest_sustainability.html"
+              ><i class="fas fa-newspaper"></i> Latest Sustainability News</a
+            >
+            <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+          </div>
+        </li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li>
+          <a href="../signUp/login.html" class="login-btn"
+            ><i class="fas fa-user"></i> Login</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <section id="home" class="hero">
+        <h1>Sustainable Kitchen Solutions</h1>
+        <p>Transform your kitchen with eco-friendly, reusable products that reduce waste and help protect our planet.</p>
+        <a href="#products" class="cta-btn">Shop Now <i class="fas fa-arrow-right"></i></a>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <h2 class="section-title">Why Go Green?</h2>
+        <div class="about-content">
+            <p>Every year, millions of tons of plastic waste end up in our oceans and landfills. By switching to reusable kitchen products, you can significantly reduce your environmental footprint while enjoying high-quality, durable alternatives that save you money in the long run.</p>
+            <p>Our products are carefully selected to be sustainable, non-toxic, and designed to last for years.</p>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="section-intro">
+            <h2 class="section-title">Our Products</h2>
+            <p>Discover our selection of eco-friendly kitchen essentials</p>
+        </div>
+        
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="images/wraps.jpg" alt="Beeswax Wraps" class="product-img">
+                <div class="product-info">
+                    <h3>Reusable Beeswax Wraps</h3>
+                    <p>Handmade, breathable food wraps that replace plastic wrap. Made with organic cotton, beeswax, tree resin, and jojoba oil.</p>
+                    <span class="price">$15.99</span>
+                    <a href="#" class="product-btn">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/set.jpg" alt="Bamboo Utensils" class="product-img">
+                <div class="product-info">
+                    <h3>Bamboo Utensil Set</h3>
+                    <p>Durable, lightweight, and compostable bamboo utensils. Includes fork, knife, spoon, and chopsticks in a cotton carrying case.</p>
+                    <span class="price">$12.99</span>
+                    <a href="#" class="product-btn">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/jars.jpg" alt="Glass Jars" class="product-img">
+                <div class="product-info">
+                    <h3>Glass Storage Jars</h3>
+                    <p>Airtight glass jars with bamboo lids. Perfect for storing dry goods, preserving freshness without plastic waste.</p>
+                    <span class="price">$19.99</span>
+                    <a href="#" class="product-btn">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/storage_bags.jpg" alt="Silicone Bags" class="product-img">
+                <div class="product-info">
+                    <h3>Silicone Food Storage Bags</h3>
+                    <p>Reusable, leakproof silicone bags for storing food. Dishwasher, freezer, and microwave safe.</p>
+                    <span class="price">$14.99</span>
+                    <a href="#" class="product-btn">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/napkins.jpg" alt="Cloth Napkins" class="product-img">
+                <div class="product-info">
+                    <h3>Organic Cotton Napkins</h3>
+                    <p>Soft, absorbent napkins made from 100% organic cotton. Machine washable and designed to last for years.</p>
+                    <span class="price">$9.99</span>
+                    <a href="#" class="product-btn">Add to Cart</a>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="images/scrubber.jpg" alt="Compostable Scrubber" class="product-img">
+                <div class="product-info">
+                    <h3>Compostable Kitchen Scrubbers</h3>
+                    <p>Natural cleaning scrubbers made from coconut fiber and plant-based materials. Effective and fully compostable.</p>
+                    <span class="price">$7.99</span>
+                    <a href="#" class="product-btn">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2 class="section-title">Why Choose Our Products?</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-leaf"></i>
+                <h3>Eco-Friendly</h3>
+                <p>All our products are made from sustainable materials that have minimal impact on the environment.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-recycle"></i>
+                <h3>Reusable</h3>
+                <p>Designed to be used hundreds of times, reducing waste and saving you money in the long run.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-check-circle"></i>
+                <h3>Non-Toxic</h3>
+                <p>Free from harmful chemicals like BPA, phthalates, and other toxins commonly found in plastics.</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-heart"></i>
+                <h3>Ethically Made</h3>
+                <p>Produced under fair working conditions with respect for both people and the planet.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials-section">
+        <h2 class="section-title">What Our Customers Say</h2>
+        
+        <div class="testimonials-container">
+            <div class="testimonial">
+                <p class="testimonial-text">The beeswax wraps have completely replaced plastic wrap in my kitchen. They work even better for keeping produce fresh!</p>
+                <p class="testimonial-author">- Sarah J.</p>
+            </div>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">I love how durable the bamboo utensils are. I've been using them for months and they still look brand new.</p>
+                <p class="testimonial-author">- Michael T.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About EcoSphere</h3>
+          <p>
+            EcoSphere is dedicated to promoting sustainable living through
+            educational resources, community engagement, and practical tips for
+            reducing environmental impact.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog/green_living.html">Blog</a></li>
+            <li><a href="kitchen.html">Marketplace</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Eco-Calculators</a></li>
+            <li><a href="#">Sustainability Guides</a></li>
+            <li><a href="#">Energy Saving Tips</a></li>
+            <li><a href="#">Zero-Waste Living</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+            </li>
+            <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

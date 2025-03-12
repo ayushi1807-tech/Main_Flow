@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Zero-waste</title>
+    <style>
+        :root {
+            --primary-color: #1B5E20;
+            --secondary-color: #388E3C;
+            --accent-color: #4CAF50;
+            --light-color: #C8E6C9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+        
+        /* Navbar styles */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            display: block;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .login-btn {
+            background-color: var(--primary-color);
+            color: var(--white) !important;
+            padding: 10px 20px !important;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold !important;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        
+        /* Hero Section */
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1600/900');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            text-align: center;
+            padding: 180px 20px 100px;
+            margin-top: 0;
+        }
+        
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            animation: fadeInUp 1.2s ease;
+        }
+        
+        .hero-cta {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            animation: fadeInUp 1.4s ease;
+        }
+        
+        .hero-cta:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.4);
+        }
+        
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            color: var(--primary-color);
+            font-size: 36px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Grid Layout */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .grid-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .grid-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .grid-item-img {
+            height: 230px;
+            overflow: hidden;
+        }
+        
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .grid-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .grid-item-content {
+            padding: 25px;
+        }
+        
+        .grid-item h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .grid-item p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .grid-item-icon {
+            color: var(--accent-color);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        /* Challenge Section */
+        .challenge-section {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+        
+        .challenge-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .challenge-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .cta {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .cta:hover {
+            background-color: #F57F17;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(249, 168, 37, 0.4);
+        }
+        
+        /* Testimonials */
+        .testimonial-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            text-align: left;
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .testimonial-role {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background-color: var(--light-color);
+            padding: 80px 0;
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        
+        .stat-text {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        
+        
+        
+        
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 50px 10% 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            EcoSphere
+        </div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+                <div class="dropdown-content">
+                    <a href="energy_saving.html"><i class="fas fa-lightbulb"></i> Energy Saving</a>
+                    <a href="food_choices.html"><i class="fas fa-carrot"></i> Sustainable Food Choices</a>
+                    <a href="zero_waste.html"><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a>
+                    <a href="water.html"><i class="fas fa-tint"></i> Water Conservation</a>
+                    <a href="Transportation.html"><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="market_space/marketSpace.html" class="dropbtn">Zero-Waste Marketplace</a>
+                <div class="dropdown-content">
+                    <a href="../market_space/kitchen.html"><i class="fas fa-utensils"></i> Reusable Kitchen Products</a>
+                    <a href="../market_space/fashion.html"><i class="fas fa-tshirt"></i> Sustainable Fashion</a>
+                    <a href="../market_space/cleaning.html"><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning Supplies</a>
+                    <a href="../market_space/solar.html"><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#community" class="dropbtn">Community</a>
+                <div class="dropdown-content">
+                    <a href="../community/discussion_forum.html"><i class="fas fa-comments"></i> Discussion Forum</a>
+                    <a href="../community/eco_challanges.html"><i class="fas fa-trophy"></i> User Eco-Challenges</a>
+                    <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+                    <a href="../community/Events _Webinars.html"><i class="fas fa-calendar-alt"></i> Events & Webinars</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#blog" class="dropbtn">Blog</a>
+                <div class="dropdown-content">
+                    <a href="../blog/green_living.html"><i class="fas fa-seedling"></i> Green Living Guides</a>
+                    <a href="../blog/latest_sustainability.html"><i class="fas fa-newspaper"></i> Latest Sustainability News</a>
+                    <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+                </div>
+            </li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="../signUp/login.html" class="login-btn"><i class="fas fa-user"></i> Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h1>Embrace a Zero-Waste Lifestyle</h1>
+        <p>Join the movement to reduce waste, reuse resources, and recycle responsibly. Together, we can create a sustainable future for our planet.</p>
+        <a href="#challenge" class="hero-cta">Start Your Journey</a>
+    </div>
+
+    <!-- Principles Section -->
+    <section class="section" id="principles">
+        <div class="container">
+            <div class="section-header">
+                <h2>Core Principles of Zero-Waste Living</h2>
+                <p>Adopting these principles can dramatically reduce your environmental footprint and lead to a more intentional, mindful lifestyle.</p>
+            </div>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="grid-item-img">
+                        <img src="images/reycle.jpg" alt="Reduce Waste">
+                    </div>
+                    <div class="grid-item-content">
+                        <div class="grid-item-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h3>Reduce, Reuse, Recycle</h3>
+                        <p>Minimize consumption, find creative ways to reuse items, and properly recycle materials that can't be reused.</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-img">
+                        <img src="images/plastic_free.jpg" alt="Plastic-Free Alternatives">
+                    </div>
+                    <div class="grid-item-content">
+                        <div class="grid-item-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h3>Plastic-Free Alternatives</h3>
+                        <p>Replace single-use plastics with sustainable alternatives like bamboo toothbrushes, stainless steel straws, and cloth bags.</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-img">
+                        <img src="images/coposting.jpg" alt="Composting">
+                    </div>
+                    <div class="grid-item-content">
+                        <div class="grid-item-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Composting</h3>
+                        <p>Transform food scraps and yard waste into nutrient-rich soil that can nourish your garden and reduce methane emissions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Practical Tips Section -->
+    <section class="section" id="tips" style="background-color: #F5F5F5;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Practical Zero-Waste Tips</h2>
+                <p>Small changes in your daily routine can make a big difference for our planet.</p>
+            </div>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <div class="grid-item-img">
+                        <img src="images/kitchen.jpg" alt="Kitchen Tips">
+                    </div>
+                    <div class="grid-item-content">
+                        <div class="grid-item-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>In The Kitchen</h3>
+                        <p>Use cloth napkins, beeswax wraps instead of plastic wrap, and buy food in bulk to reduce packaging waste.</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-img">
+                        <img src="images/bags.jpg" alt="Shopping">
+                    </div>
+                    <div class="grid-item-content">
+                        <div class="grid-item-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <h3>Shopping Smart</h3>
+                        <p>Bring your own shopping bags, buy second-hand when possible, and support businesses with sustainable practices.</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-img">
+                        <img src="images/shampoo.jpg" alt="Bathroom">
+                    </div>
+                    <div class="grid-item-content">
+                        <div class="grid-item-icon">
+                            <i class="fas fa-shower"></i>
+                        </div>
+                        <h3>Bathroom Essentials</h3>
+                        <p>Switch to solid shampoo bars, bamboo toothbrushes, and reusable makeup remover pads to minimize bathroom waste.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Impact of Going Zero-Waste</h2>
+                <p>Every small action contributes to meaningful change.</p>
+            </div>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number">700+</div>
+                    <div class="stat-text">Average plastic items saved per person annually</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">30%</div>
+                    <div class="stat-text">Reduction in household waste through composting</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1,500</div>
+                    <div class="stat-text">Gallons of water saved with sustainable habits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">80%</div>
+                    <div class="stat-text">Of items in landfills could be recycled or composted</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Challenge Section -->
+    <section class="challenge-section" id="challenge">
+        <div class="container">
+            <h2>Join the 30-Day Zero-Waste Challenge</h2>
+            <p>Transform your habits with our guided challenge. We'll send you daily tips, activities, and encouragement to help you reduce waste and live more sustainably.</p>
+            <a href="#" class="cta">Start the Challenge</a>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Success Stories</h2>
+                <p>Hear from people who have embraced the zero-waste lifestyle.</p>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <img src="images/kesh.jpeg" alt="Sarah" class="testimonial-img">
+                        <div>
+                            <div class="testimonial-name">Sarah Johnson</div>
+                            <div class="testimonial-role">Urban Minimalist</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Starting the zero-waste challenge changed my perspective completely. Now my weekly trash fits in a small jar, and I've saved money by being more mindful about consumption."</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <img src="images/kri.jpeg" alt="Michael" class="testimonial-img">
+                        <div>
+                            <div class="testimonial-name">Michael Chen</div>
+                            <div class="testimonial-role">Family of Four</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"We thought going zero-waste with kids would be impossible, but taking it step by step made it achievable. Now our children are the ones reminding us to be mindful of waste!"</p>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-header">
+                        <img src="images/yash.jpeg" alt="Emma" class="testimonial-img">
+                        <div>
+                            <div class="testimonial-name">Emma Rodriguez</div>
+                            <div class="testimonial-role">College Student</div>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"Even on a tight budget and with limited space, I've found ways to reduce my impact. The community support and creative solutions have been incredibly helpful."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About EcoSphere</h3>
+                <p>EcoSphere is dedicated to promoting sustainable living through educational resources, community engagement, and practical tips for reducing environmental impact.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../blog/green_living.html">Blog</a></li>
+                    <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Eco-Calculators</a></li>
+                    <li><a href="#">Sustainability Guides</a></li>
+                    <li><a href="#">Energy Saving Tips</a></li>
+                    <li><a href="#">Zero-Waste Living</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City</li>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+
+</body>
+</html>

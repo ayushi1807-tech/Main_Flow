@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <title>Solar</title>
+<style>
+    :root {
+        --primary-color: #1b5e20;
+        --secondary-color: #388e3c;
+        --accent-color: #4caf50;
+        --light-color: #c8e6c9;
+        --dark-color: #033605;
+        --text-color: #333;
+        --text-light: #666;
+        --white: #fff;
+        --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --primary-light: #A5D6A7;
+            --secondary: #2E7D32;
+            --accent: #8BC34A;
+            --accent-dark: #689F38;
+            --text: #263238;
+            --light-bg: #F1F8E9;
+            --card-bg: #ffffff;
+            --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+    }
+    
+    .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+    }
+    
+    .nav-links li {
+        position: relative;
+    }
+    
+    .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+        color: var(--primary-color);
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .dropdown-content a {
+        color: var(--text-color);
+        padding: 12px 16px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .dropdown-content a:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .login-btn {
+        background-color: var(--primary-color);
+        color: var(--white) !important;
+        padding: 10px 20px !important;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold !important;
+        transition: all 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-btn:hover {
+        background-color: var(--dark-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 50px 10% 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .hero {
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        position: relative;
+        text-align: center;
+        padding: 0 2rem;
+    }
+    
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(46, 125, 50, 0.9)), url("/api/placeholder/1600/900") center/cover no-repeat;
+        z-index: -1;
+    }
+    
+    .hero-content {
+        max-width: 800px;
+        z-index: 1;
+    }
+    
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    }
+    
+    .hero p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+    }
+    
+    .cta-button {
+        background-color: var(--accent);
+        color: white;
+        padding: 1rem 2rem;
+        text-decoration: none;
+        border-radius: 50px;
+        font-weight: bold;
+        display: inline-block;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cta-button:hover {
+        background-color: var(--primary-color);
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .features {
+        text-align: center;
+        padding: 5rem 2rem;
+        background-color: var(--secondary);
+        color: white;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background-color: var(--accent);
+    }
+    
+    .feature-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 2rem;
+    }
+    
+    .feature-item {
+        flex: 1;
+        min-width: 250px;
+        max-width: 350px;
+        padding: 2rem;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+    
+    .feature-item:hover {
+        transform: translateY(-10px);
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .gadget-section {
+        padding: 5rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .gadget-section .section-title {
+        color: var(--text);
+    }
+    
+    .gadget-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .gadget-card {
+        background: var(--card-bg);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid var(--primary-light);
+    }
+    
+    .gadget-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gadget-image {
+        height: 250px;
+        overflow: hidden;
+    }
+    
+    .gadget-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+    }
+    
+    .gadget-card:hover .gadget-image img {
+        transform: scale(1.1);
+    }
+    
+    .gadget-content {
+        padding: 1.5rem;
+    }
+    
+    .gadget-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--primary-dark);
+    }
+    
+    .gadget-content p {
+        color: #666;
+        margin-bottom: 1rem;
+    }
+    
+    .price {
+        font-weight: bold;
+        color: var(--primary);
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+    }
+    
+    .rating {
+        color: var(--accent-dark);
+        margin-bottom: 1rem;
+    }
+    
+    .button {
+        background-color: var(--primary);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background 0.3s;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    
+    .button:hover {
+        background-color: var(--primary-dark);
+    }
+    
+    .testimonials {
+        background-color: var(--accent);
+        padding: 5rem 2rem;
+        color: white;
+        text-align: center;
+    }
+    
+    .testimonial-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .testimonial-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 10px;
+        max-width: 350px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .testimonial-text {
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+    
+    .testimonial-author {
+        font-weight: bold;
+    }
+    
+    .newsletter {
+        padding: 5rem 2rem;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 2rem auto;
+    }
+    
+    .newsletter-input {
+        flex: 1;
+        padding: 1rem;
+        border: 2px solid var(--primary-light);
+        border-radius: 5px 0 0 5px;
+        font-size: 1rem;
+    }
+    
+    .newsletter-button {
+        background-color: var(--primary);
+        color: white;
+        padding: 1rem 1.5rem;
+        border: none;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+        transition: background 0.3s;
+        font-weight: bold;
+    }
+    
+    .newsletter-button:hover {
+        background-color: var(--primary-dark);
+    }
+    
+    .eco-facts {
+        background-color: var(--primary-light);
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    
+    .eco-facts-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 2rem auto 0;
+    }
+    
+    .eco-fact {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: var(--card-shadow);
+        flex: 1;
+        min-width: 200px;
+        max-width: 250px;
+    }
+    
+    .eco-fact-number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+    }
+      
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+          <i class="fas fa-leaf"></i>
+          EcoSphere
+        </div>
+        <ul class="nav-links">
+          <li class="dropdown">
+            <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+            <div class="dropdown-content">
+              <a href="../eco-tips/energy_saving.html"
+                ><i class="fas fa-lightbulb"></i> Energy Saving</a
+              >
+              <a href="../eco-tips/food_choices.html"
+                ><i class="fas fa-carrot"></i> Sustainable Food Choices</a
+              >
+              <a href="../eco-tips/zero_waste.html"
+                ><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a
+              >
+              <a href="../eco-tips/water.html"
+                ><i class="fas fa-tint"></i> Water Conservation</a
+              >
+              <a href="../eco-tips/Transportation.html"
+                ><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a
+              >
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="market_space/marketSpace.html" class="dropbtn"
+              >Zero-Waste Marketplace</a
+            >
+            <div class="dropdown-content">
+              <a href="kitchen.html"
+                ><i class="fas fa-utensils"></i> Reusable Kitchen Products</a
+              >
+              <a href="fashion.html"
+                ><i class="fas fa-tshirt"></i> Sustainable Fashion</a
+              >
+              <a href="cleaning.html"
+                ><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+                Supplies</a
+              >
+              <a href="solar.html"
+                ><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a
+              >
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#community" class="dropbtn">Community</a>
+            <div class="dropdown-content">
+              <a href="../community/discussion_forum.html"
+                ><i class="fas fa-comments"></i> Discussion Forum</a
+              >
+              <a href="../community/eco_challanges.html"
+                ><i class="fas fa-trophy"></i> User Eco-Challenges</a
+              >
+              <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+              <a href="../community/Events _Webinars.html"
+                ><i class="fas fa-calendar-alt"></i> Events & Webinars</a
+              >
+            </div>
+          </li>
+          <li class="dropdown">
+            <a href="#blog" class="dropbtn">Blog</a>
+            <div class="dropdown-content">
+              <a href="../blog/green_living.html"
+                ><i class="fas fa-seedling"></i> Green Living Guides</a
+              >
+              <a href="../blog/latest_sustainability.html"
+                ><i class="fas fa-newspaper"></i> Latest Sustainability News</a
+              >
+              <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+            </div>
+          </li>
+          <li><a href="../contact.html">Contact</a></li>
+          <li>
+            <a href="../signUp/login.html" class="login-btn"
+              ><i class="fas fa-user"></i> Login</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Harness Nature's Energy</h1>
+            <p>Sustainable solar-powered gadgets for a greener tomorrow.</p>
+            <a href="#gadgets" class="cta-button">Explore Green Tech</a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Power of Solar</h2>
+        <div class="feature-container">
+            <div class="feature-item">
+                <div class="feature-icon">🌱</div>
+                <h3>Eco-Friendly</h3>
+                <p>Zero carbon footprint with clean, renewable energy that helps preserve our planet.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💧</div>
+                <h3>Resource-Saving</h3>
+                <p>Conserve precious natural resources while enjoying modern technology and convenience.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">⚡</div>
+                <h3>Energy Independence</h3>
+                <p>Free yourself from the grid with self-sustaining devices that capture solar energy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gadget-section" id="gadgets">
+        <h2 class="section-title">Sustainable Gadgets</h2>
+        <div class="gadget-container">
+            <div class="gadget-card">
+                <div class="gadget-image">
+                    <img src="images/powerbank.jpg" alt="Solar Power Bank">
+                </div>
+                <div class="gadget-content">
+                    <h3>EcoCharge Power Bank</h3>
+                    <p>20000mAh solar power bank that keeps your devices charged wherever you go.</p>
+                    <div class="rating">★★★★★</div>
+                    <div class="price">$49.99</div>
+                    <button class="button">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="gadget-card">
+                <div class="gadget-image">
+                    <img src="images/lantern.jpg" alt="Solar Camping Lantern">
+                </div>
+                <div class="gadget-content">
+                    <h3>GreenGlow Camping Lantern</h3>
+                    <p>Waterproof LED lantern with 3 brightness modes and USB charging port.</p>
+                    <div class="rating">★★★★☆</div>
+                    <div class="price">$29.99</div>
+                    <button class="button">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="gadget-card">
+                <div class="gadget-image">
+                    <img src="images/coocker.jpg" alt="Solar Cooker">
+                </div>
+                <div class="gadget-content">
+                    <h3>SunChef Solar Cooker</h3>
+                    <p>Portable parabolic cooker that reaches 300°F using only the power of sunlight.</p>
+                    <div class="rating">★★★★☆</div>
+                    <div class="price">$79.99</div>
+                    <button class="button">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="gadget-card">
+                <div class="gadget-image">
+                    <img src="images/backpack.jpg" alt="Solar Backpack">
+                </div>
+                <div class="gadget-content">
+                    <h3>PowerPack Solar Backpack</h3>
+                    <p>Durable backpack with integrated 7W solar panel and multiple charging ports.</p>
+                    <div class="rating">★★★★★</div>
+                    <div class="price">$89.99</div>
+                    <button class="button">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="gadget-card">
+                <div class="gadget-image">
+                    <img src="images/lights.jpg" alt="Solar Garden Lights">
+                </div>
+                <div class="gadget-content">
+                    <h3>GardenGlow String Lights</h3>
+                    <p>50-LED weatherproof fairy lights with 8 lighting modes for garden or patio.</p>
+                    <div class="rating">★★★★☆</div>
+                    <div class="price">$34.99</div>
+                    <button class="button">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="gadget-card">
+                <div class="gadget-image">
+                    <img src="images/speaker.jpg" alt="Solar Bluetooth Speaker">
+                </div>
+                <div class="gadget-content">
+                    <h3>EcoBeats Solar Speaker</h3>
+                    <p>IPX7 waterproof Bluetooth speaker with 20 hours of playback and solar charging.</p>
+                    <div class="rating">★★★★☆</div>
+                    <div class="price">$59.99</div>
+                    <button class="button">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="eco-facts" id="eco-impact">
+        <h2 class="section-title">Our Environmental Impact</h2>
+        <p>Every purchase contributes to a healthier planet. Here's how we're making a difference:</p>
+        <div class="eco-facts-container">
+            <div class="eco-fact">
+                <div class="eco-fact-number">5,000+</div>
+                <p>Trees Planted Through Our Partnership Program</p>
+            </div>
+            <div class="eco-fact">
+                <div class="eco-fact-number">300 tons</div>
+                <p>CO2 Emissions Prevented Annually</p>
+            </div>
+            <div class="eco-fact">
+                <div class="eco-fact-number">85%</div>
+                <p>Recyclable Materials in Our Packaging</p>
+            </div>
+            <div class="eco-fact">
+                <div class="eco-fact-number">10,000+</div>
+                <p>Households Using Our Solar Products</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">Customer Stories</h2>
+        <div class="testimonial-container">
+            <div class="testimonial-card">
+                <p class="testimonial-text">"I take my EcoCharge Power Bank on every hiking trip. It's reliable even on cloudy days and keeps all my devices powered in the wilderness."</p>
+                <p class="testimonial-author">- Michael T., Outdoor Enthusiast</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The GardenGlow lights transformed my backyard into a magical space. They charge fully even in winter and last all night long!"</p>
+                <p class="testimonial-author">- Sarah K., Home Gardener</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">"The SunChef Solar Cooker is perfect for beach days. Made delicious meals without any fuel or fire - just pure sunshine!"</p>
+                <p class="testimonial-author">- David R., Beach Lover</p>
+            </div>
+        </div>
+    </section>
+
+    
+      <footer>
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>About EcoSphere</h3>
+            <p>
+              EcoSphere is dedicated to promoting sustainable living through
+              educational resources, community engagement, and practical tips for
+              reducing environmental impact.
+            </p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+  
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="../blog/green_living.html">Blog</a></li>
+              <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+              <li><a href="../contact.html">Contact</a></li>
+          </ul>
+          </div>
+  
+          <div class="footer-column">
+            <h3>Resources</h3>
+            <ul>
+              <li><a href="#">Eco-Calculators</a></li>
+              <li><a href="#">Sustainability Guides</a></li>
+              <li><a href="#">Energy Saving Tips</a></li>
+              <li><a href="#">Zero-Waste Living</a></li>
+            </ul>
+          </div>
+  
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <ul>
+              <li>
+                <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+              </li>
+              <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+              <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+</body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community-discussion_forum</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+        :root {
+            --primary-color: #1B5E20;
+            --secondary-color: #388E3C;
+            --accent-color: #4CAF50;
+            --light-color: #C8E6C9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
+      }
+
+      .dropdown-content a {
+        color: var(--text-color);
+        padding: 12px 16px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .dropdown-content a:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .login-btn {
+        background-color: var(--primary-color);
+        color: var(--white) !important;
+        padding: 10px 20px !important;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold !important;
+        transition: all 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-btn:hover {
+        background-color: var(--dark-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 50px 10% 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+       
+      header {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 3rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(139, 195, 74, 0.8));
+        z-index: 1;
+    }
+    
+    .header-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/api/placeholder/1600/400') center/cover;
+        opacity: 0.3;
+        z-index: 0;
+    }
+    
+    .header-content {
+        position: relative;
+        z-index: 2;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        text-align: center;
+    }
+    
+    .header-content h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+    
+    .header-content p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+    
+    .intro {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 3rem;
+    }
+    
+    .intro h2 {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.5rem;
+    }
+    
+    .intro h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 25%;
+        width: 50%;
+        height: 3px;
+        background-color: var(--accent-color);
+    }
+    
+    .intro p {
+        color: var(--light-text);
+        font-size: 1.1rem;
+    }
+    
+    .search-box {
+        max-width: 600px;
+        margin: 0 auto 3rem;
+        position: relative;
+    }
+    
+    .search-box input {
+        width: 100%;
+        padding: 1rem 1rem 1rem 3rem;
+        border: 2px solid var(--light-green);
+        border-radius: 50px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: var(--white);
+    }
+    
+    .search-box input:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+    }
+    
+    .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--light-text);
+    }
+    
+    .guides-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+    
+    .guide-card {
+        background-color: var(--white);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    
+    .guide-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--hover-shadow);
+    }
+    
+    .guide-image {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .guide-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .guide-card:hover .guide-image img {
+        transform: scale(1.05);
+    }
+    
+    .guide-level {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 1;
+    }
+    
+    .guide-content {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    
+    .guide-title {
+        font-size: 1.4rem;
+        color: var(--primary-color);
+        margin-bottom: 0.8rem;
+        line-height: 1.3;
+    }
+    
+    .guide-description {
+        color: var(--light-text);
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    
+    .guide-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid var(--light-green);
+    }
+    
+    .guide-time {
+        display: flex;
+        align-items: center;
+        color: var(--light-text);
+        font-size: 0.9rem;
+    }
+    
+    .guide-time svg {
+        margin-right: 0.5rem;
+    }
+    
+    .guide-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .guide-link:hover {
+        color: var(--secondary-color);
+    }
+    
+    .guide-link svg {
+        margin-left: 0.5rem;
+        transition: transform 0.3s ease;
+    }
+    
+    .guide-link:hover svg {
+        transform: translateX(5px);
+    }
+    
+    .featured-guides {
+        margin-bottom: 4rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.5rem;
+    }
+    
+    .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 25%;
+        width: 50%;
+        height: 3px;
+        background-color: var(--accent-color);
+    }
+    
+    .categories {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+    }
+    
+    .category-button {
+        background-color: var(--white);
+        border: 2px solid var(--light-green);
+        color: var(--primary-color);
+        padding: 0.5rem 1.2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .category-button:hover, .category-button.active {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: var(--white);
+    }
+    
+    .newsletter {
+        background-color: var(--light-green);
+        padding: 3rem;
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 4rem;
+    }
+    
+    .newsletter h3 {
+        font-size: 1.8rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+    
+    .newsletter p {
+        color: var(--dark-text);
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+    }
+    
+    .newsletter-form {
+        display: flex;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+    
+    .newsletter-form input {
+        flex-grow: 1;
+        padding: 0.8rem 1rem;
+        border: 2px solid var(--white);
+        border-radius: 50px 0 0 50px;
+        border-right: none;
+        font-size: 1rem;
+    }
+    
+    .newsletter-form input:focus {
+        outline: none;
+        border-color: var(--secondary-color);
+    }
+    
+    .newsletter-form button {
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: 0.8rem 1.5rem;
+        border: 2px solid var(--primary-color);
+        border-radius: 0 50px 50px 0;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .newsletter-form button:hover {
+        background-color: #236329;
+    }
+      
+    </style>
+
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        EcoSphere
+      </div>
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+          <div class="dropdown-content">
+            <a href="../eco-tips/energy_saving.html"
+              ><i class="fas fa-lightbulb"></i> Energy Saving</a
+            >
+            <a href="../eco-tips/food_choices.html"
+              ><i class="fas fa-carrot"></i> Sustainable Food Choices</a
+            >
+            <a href="../eco-tips/zero_waste.html"
+              ><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a
+            >
+            <a href="../eco-tips/water.html"
+              ><i class="fas fa-tint"></i> Water Conservation</a
+            >
+            <a href="../eco-tips/Transportation.html"
+              ><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="market_space/marketSpace.html" class="dropbtn"
+            >Zero-Waste Marketplace</a
+          >
+          <div class="dropdown-content">
+            <a href="../market_space/kitchen.html"
+              ><i class="fas fa-utensils"></i> Reusable Kitchen Products</a
+            >
+            <a href="../market_space/fashion.html"
+              ><i class="fas fa-tshirt"></i> Sustainable Fashion</a
+            >
+            <a href="../market_space/cleaning.html"
+              ><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+              Supplies</a
+            >
+            <a href="../market_space/solar.html"
+              ><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#community" class="dropbtn">Community</a>
+          <div class="dropdown-content">
+            <a href="../community/discussion_forum.html"
+              ><i class="fas fa-comments"></i> Discussion Forum</a
+            >
+            <a href="../community/eco_challanges.html"
+              ><i class="fas fa-trophy"></i> User Eco-Challenges</a
+            >
+            <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+            <a href="../community/Events _Webinars.html"
+              ><i class="fas fa-calendar-alt"></i> Events & Webinars</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#blog" class="dropbtn">Blog</a>
+          <div class="dropdown-content">
+            <a href="green_living.html"
+              ><i class="fas fa-seedling"></i> Green Living Guides</a
+            >
+            <a href="latest_sustainability.html"
+              ><i class="fas fa-newspaper"></i> Latest Sustainability News</a
+            >
+            <a href="DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+          </div>
+        </li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li>
+          <a href="../signUp/login.html" class="login-btn"
+            ><i class="fas fa-user"></i> Login</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <header>
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1>Green Living Guides</h1>
+            <p>Practical resources to help you live more sustainably and make eco-friendly choices every day</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <h2>Start Your Eco-Friendly Journey</h2>
+            <p>Our comprehensive guides provide simple, actionable steps to reduce your environmental impact. Whether you're just beginning or looking to deepen your commitment to sustainability, we have resources for every stage of your green living journey.</p>
+        </section>
+        
+        <div class="search-box">
+            <span class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </span>
+            <input type="text" placeholder="Search for guides...">
+        </div>
+        
+        <div class="categories">
+            <button class="category-button active">All Guides</button>
+            <button class="category-button">Home</button>
+            <button class="category-button">Food</button>
+            <button class="category-button">Travel</button>
+            <button class="category-button">Energy</button>
+            <button class="category-button">Recycling</button>
+        </div>
+        
+        <section class="featured-guides">
+            <h2 class="section-title">Featured Guides</h2>
+            
+            <div class="guides-grid">
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <span class="guide-level">Beginner</span>
+                        <img src="1.jpg" alt="Sustainable living lifestyle image">
+                    </div>
+                    <div class="guide-content">
+                        <h3 class="guide-title">Beginner's Guide to Sustainable Living</h3>
+                        <p class="guide-description">Learn how to start your journey toward a more eco-friendly lifestyle with simple, practical steps. This comprehensive guide covers the basics of reducing waste, conserving energy, and making more sustainable choices for your home and daily routine.</p>
+                        <div class="guide-meta">
+                            <span class="guide-time">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                10 min read
+                            </span>
+                            <a href="#" class="guide-link">
+                                Read Guide
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <span class="guide-level">Intermediate</span>
+                        <img src="2.jpg" alt="Plastic-free alternatives in a home">
+                    </div>
+                    <div class="guide-content">
+                        <h3 class="guide-title">Reducing Plastic Waste at Home</h3>
+                        <p class="guide-description">Discover effective ways to minimize plastic usage in your daily life and opt for sustainable alternatives. Learn about reusable options for common household items, how to shop package-free, and strategies for avoiding single-use plastics in every room of your home.</p>
+                        <div class="guide-meta">
+                            <span class="guide-time">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                12 min read
+                            </span>
+                            <a href="#" class="guide-link">
+                                Read Guide
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <span class="guide-level">All Levels</span>
+                        <img src="3.jpg" alt="Eco-friendly travel">
+                    </div>
+                    <div class="guide-content">
+                        <h3 class="guide-title">Eco-Friendly Travel Tips</h3>
+                        <p class="guide-description">Find out how to explore the world while leaving a minimal carbon footprint through responsible travel choices. This guide covers sustainable transportation options, eco-friendly accommodations, ethical tourism practices, and how to respect local environments and communities.</p>
+                        <div class="guide-meta">
+                            <span class="guide-time">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                15 min read
+                            </span>
+                            <a href="#" class="guide-link">
+                                Read Guide
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="recent-guides">
+            <h2 class="section-title">New Guides</h2>
+            
+            <div class="guides-grid">
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <span class="guide-level">Intermediate</span>
+                        <img src="4.jpg" alt="Composting bin in a garden">
+                    </div>
+                    <div class="guide-content">
+                        <h3 class="guide-title">Composting 101: Turn Waste into Garden Gold</h3>
+                        <p class="guide-description">Learn how to start and maintain a compost system that works for your space, whether you have a backyard or just a small apartment. Discover what can be composted, troubleshooting tips, and how to use your finished compost.</p>
+                        <div class="guide-meta">
+                            <span class="guide-time">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                14 min read
+                            </span>
+                            <a href="#" class="guide-link">
+                                Read Guide
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <span class="guide-level">Advanced</span>
+                        <img src="5.jpg" alt="Smart home energy system">
+                    </div>
+                    <div class="guide-content">
+                        <h3 class="guide-title">Home Energy Efficiency Upgrades</h3>
+                        <p class="guide-description">Explore cost-effective ways to improve your home's energy efficiency, from simple weatherstripping to more advanced upgrades like smart thermostats and energy-efficient appliances. Learn about renewable energy options for homeowners.</p>
+                        <div class="guide-meta">
+                            <span class="guide-time">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                18 min read
+                            </span>
+                            <a href="#" class="guide-link">
+                                Read Guide
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <div class="guide-image">
+                        <span class="guide-level">Beginner</span>
+                        <img src="6.jpg" alt="Sustainable fashion items">
+                    </div>
+                    <div class="guide-content">
+                        <h3 class="guide-title">Sustainable Fashion: Building an Eco-Friendly Wardrobe</h3>
+                        <p class="guide-description">Understand the environmental impact of fast fashion and learn how to create a more sustainable wardrobe through mindful purchasing, caring for clothes properly, ethical brands, secondhand shopping, and clothing swaps.</p>
+                        <div class="guide-meta">
+                            <span class="guide-time">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                11 min read
+                            </span>
+                            <a href="#" class="guide-link">
+                                Read Guide
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="newsletter">
+            <h3>Stay Updated with Our Latest Guides</h3>
+            <p>Join our community and receive new eco-friendly guides, tips, and sustainable living inspiration directly in your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </section>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About EcoSphere</h3>
+          <p>
+            EcoSphere is dedicated to promoting sustainable living through
+            educational resources, community engagement, and practical tips for
+            reducing environmental impact.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="green_living.html">Blog</a></li>
+            <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Eco-Calculators</a></li>
+            <li><a href="#">Sustainability Guides</a></li>
+            <li><a href="#">Energy Saving Tips</a></li>
+            <li><a href="#">Zero-Waste Living</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+            </li>
+            <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

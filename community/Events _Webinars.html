@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events & Webinars</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+        :root {
+            --primary-color: #1B5E20;
+            --secondary-color: #388E3C;
+            --accent-color: #4CAF50;
+            --light-color: #C8E6C9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
+      }
+
+      .dropdown-content a {
+        color: var(--text-color);
+        padding: 12px 16px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .dropdown-content a:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .login-btn {
+        background-color: var(--primary-color);
+        color: var(--white) !important;
+        padding: 10px 20px !important;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold !important;
+        transition: all 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-btn:hover {
+        background-color: var(--dark-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 50px 10% 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+       header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.8), rgba(46, 125, 50, 0.9));
+            z-index: 0;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        header p {
+            margin: 1rem 0 0;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .event-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .event-details {
+            padding: 1.5rem;
+        }
+        
+        .event-date {
+            background-color: var(--primary-light);
+            color: white;
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .event-title {
+            font-size: 1.5rem;
+            margin: 0 0 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .event-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #777;
+        }
+        
+        .event-meta-item {
+            display: flex;
+            align-items: center;
+            margin-right: 1rem;
+        }
+        
+        .event-meta-item svg {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .register-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .register-btn:hover {
+            background: #1b5e20;
+        }
+        
+        .register-btn svg {
+            margin-left: 0.5rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .search-filter {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+        
+        .filter-select {
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            background-color: white;
+            min-width: 150px;
+        }
+    </style>
+
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        EcoSphere
+      </div>
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+          <div class="dropdown-content">
+            <a href="../eco-tips/energy_saving.html"
+              ><i class="fas fa-lightbulb"></i> Energy Saving</a
+            >
+            <a href="../eco-tips/food_choices.html"
+              ><i class="fas fa-carrot"></i> Sustainable Food Choices</a
+            >
+            <a href="../eco-tips/zero_waste.html"
+              ><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a
+            >
+            <a href="../eco-tips/water.html"
+              ><i class="fas fa-tint"></i> Water Conservation</a
+            >
+            <a href="../eco-tips/Transportation.html"
+              ><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="market_space/marketSpace.html" class="dropbtn"
+            >Zero-Waste Marketplace</a
+          >
+          <div class="dropdown-content">
+            <a href="../market_space/kitchen.html"
+              ><i class="fas fa-utensils"></i> Reusable Kitchen Products</a
+            >
+            <a href="../market_space/fashion.html"
+              ><i class="fas fa-tshirt"></i> Sustainable Fashion</a
+            >
+            <a href="../market_space/cleaning.html"
+              ><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+              Supplies</a
+            >
+            <a href="../market_space/solar.html"
+              ><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#community" class="dropbtn">Community</a>
+          <div class="dropdown-content">
+            <a href="discussion_forum.html"
+              ><i class="fas fa-comments"></i> Discussion Forum</a
+            >
+            <a href="eco_challanges.html"
+              ><i class="fas fa-trophy"></i> User Eco-Challenges</a
+            >
+            <a href="success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+            <a href="Events _Webinars.html"
+              ><i class="fas fa-calendar-alt"></i> Events & Webinars</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#blog" class="dropbtn">Blog</a>
+          <div class="dropdown-content">
+            <a href="../blog/green_living.html"
+              ><i class="fas fa-seedling"></i> Green Living Guides</a
+            >
+            <a href="../blog/latest_sustainability.html"
+              ><i class="fas fa-newspaper"></i> Latest Sustainability News</a
+            >
+            <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+          </div>
+        </li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li>
+          <a href="../signUp/login.html" class="login-btn"
+            ><i class="fas fa-user"></i> Login</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <header>
+        <div class="header-content">
+            <h1>Events & Webinars</h1>
+            <p>Join our community to learn, connect, and take action for a greener future</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="search-filter">
+            <div class="search-box">
+                <span class="search-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </span>
+                <input type="text" placeholder="Search events...">
+            </div>
+            <select class="filter-select">
+                <option value="">All Events</option>
+                <option value="workshop">Workshops</option>
+                <option value="webinar">Webinars</option>
+                <option value="summit">Summits</option>
+            </select>
+            <select class="filter-select">
+                <option value="">All Dates</option>
+                <option value="this-month">This Month</option>
+                <option value="next-month">Next Month</option>
+                <option value="future">Future</option>
+            </select>
+        </div>
+        
+        <h2 class="section-title">Upcoming Events</h2>
+        
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('green_liing.jpg');"></div>
+                <div class="event-details">
+                    <span class="event-date">April 15, 2025</span>
+                    <h3 class="event-title">Green Living Summit</h3>
+                    <div class="event-meta">
+                        <div class="event-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                            9:00 AM - 5:00 PM
+                        </div>
+                        <div class="event-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Virtual
+                        </div>
+                    </div>
+                    <p class="event-description">Join leading environmental experts as they discuss practical and innovative approaches to sustainable living in urban environments. Learn how to reduce your carbon footprint through simple daily choices.</p>
+                    <button class="register-btn">
+                        Register
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('workshop.jpg');"></div>
+                <div class="event-details">
+                    <span class="event-date">May 10, 2025</span>
+                    <h3 class="event-title">Eco-Friendly Home Workshop</h3>
+                    <div class="event-meta">
+                        <div class="event-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                            2:00 PM - 4:30 PM
+                        </div>
+                        <div class="event-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Community Center
+                        </div>
+                    </div>
+                    <p class="event-description">Discover practical tips and DIY projects to make your home more energy-efficient and environmentally friendly. Our experts will guide you through cost-effective solutions for sustainable living.</p>
+                    <button class="register-btn">
+                        Register
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('solar.jpg');"></div>
+                <div class="event-details">
+                    <span class="event-date">June 5, 2025</span>
+                    <h3 class="event-title">Solar Energy Webinar</h3>
+                    <div class="event-meta">
+                        <div class="event-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20z"></path>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                            10:00 AM - 11:30 AM
+                        </div>
+                        <div class="event-meta-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            Virtual
+                        </div>
+                    </div>
+                    <p class="event-description">Learn about the latest advances in solar technology and how they can benefit your home or business. Understand the economics of solar energy and available incentives in your region.</p>
+                    <button class="register-btn">
+                        Register
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About EcoSphere</h3>
+          <p>
+            EcoSphere is dedicated to promoting sustainable living through
+            educational resources, community engagement, and practical tips for
+            reducing environmental impact.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../task_1/blog/green_living.html">Blog</a></li>
+            <li><a href="../task_1/market_space/kitchen.html">Marketplace</a></li>
+            <li><a href="../task_1/contact.html">Contact</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Eco-Calculators</a></li>
+            <li><a href="#">Sustainability Guides</a></li>
+            <li><a href="#">Energy Saving Tips</a></li>
+            <li><a href="#">Zero-Waste Living</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+            </li>
+            <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community-discussion_forum</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+        :root {
+            --primary-color: #1B5E20;
+            --secondary-color: #388E3C;
+            --accent-color: #4CAF50;
+            --light-color: #C8E6C9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
+      }
+
+      .dropdown-content a {
+        color: var(--text-color);
+        padding: 12px 16px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .dropdown-content a:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .login-btn {
+        background-color: var(--primary-color);
+        color: var(--white) !important;
+        padding: 10px 20px !important;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold !important;
+        transition: all 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-btn:hover {
+        background-color: var(--dark-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 50px 10% 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .header {
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 1.5rem 0;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .header p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('/api/placeholder/1200/400') center/cover;
+        opacity: 0.15;
+    }
+    
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    .forum-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+    
+    .stat-card {
+        background: var(--card-color);
+        border-radius: 10px;
+        padding: 1.5rem;
+        text-align: center;
+        flex: 1;
+        min-width: 180px;
+        margin: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .stat-icon {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+        color: var(--primary-color);
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+    }
+    
+    .stat-label {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+    
+    .tabs {
+        display: flex;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .tab {
+        padding: 0.8rem 1.5rem;
+        cursor: pointer;
+        border-bottom: 3px solid transparent;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .tab.active {
+        border-bottom: 3px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+    
+    .tab:hover:not(.active) {
+        background-color: rgba(0,0,0,0.03);
+    }
+    
+    .discussion-list {
+        margin-bottom: 2rem;
+    }
+    
+    .discussion-card {
+        background: var(--card-color);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+    }
+    
+    .discussion-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .discussion-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .discussion-title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--primary-dark);
+    }
+    
+    .discussion-meta {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+    
+    .author-img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+        object-fit: cover;
+    }
+    
+    .replies {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        padding: 1rem;
+    }
+    
+    .reply {
+        display: flex;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .reply:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+    
+    .reply-author {
+        margin-right: 0.8rem;
+    }
+    
+    .reply-content {
+        flex: 1;
+    }
+    
+    .reply-author-name {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+    }
+    
+    .reply-text {
+        color: var(--text-color);
+    }
+    
+    .new-discussion {
+        background: var(--card-color);
+        border-radius: 10px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .new-discussion h3 {
+        color: var(--primary-dark);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    .new-discussion h3 i {
+        margin-right: 0.5rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: inherit;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+    }
+    
+    .btn {
+        display: inline-block;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .btn:hover {
+        background-color: var(--primary-dark);
+    }
+    
+    .topic-tags {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 0.8rem;
+    }
+    
+    .tag {
+        background-color: rgba(76, 175, 80, 0.1);
+        color: var(--primary-color);
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+      
+    </style>
+
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        EcoSphere
+      </div>
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+          <div class="dropdown-content">
+            <a href="../eco-tips/energy_saving.html"
+              ><i class="fas fa-lightbulb"></i> Energy Saving</a
+            >
+            <a href="../eco-tips/food_choices.html"
+              ><i class="fas fa-carrot"></i> Sustainable Food Choices</a
+            >
+            <a href="../eco-tips/zero_waste.html"
+              ><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a
+            >
+            <a href="../eco-tips/water.html"
+              ><i class="fas fa-tint"></i> Water Conservation</a
+            >
+            <a href="../eco-tips/Transportation.html"
+              ><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="market_space/marketSpace.html" class="dropbtn"
+            >Zero-Waste Marketplace</a
+          >
+          <div class="dropdown-content">
+            <a href="../market_space/kitchen.html"
+              ><i class="fas fa-utensils"></i> Reusable Kitchen Products</a
+            >
+            <a href="../market_space/fashion.html"
+              ><i class="fas fa-tshirt"></i> Sustainable Fashion</a
+            >
+            <a href="../market_space/cleaning.html"
+              ><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+              Supplies</a
+            >
+            <a href="../market_space/solar.html"
+              ><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#community" class="dropbtn">Community</a>
+          <div class="dropdown-content">
+            <a href="discussion_forum.html"
+              ><i class="fas fa-comments"></i> Discussion Forum</a
+            >
+            <a href="eco_challanges.html"
+              ><i class="fas fa-trophy"></i> User Eco-Challenges</a
+            >
+            <a href="success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+            <a href="Events _Webinars.html"
+              ><i class="fas fa-calendar-alt"></i> Events & Webinars</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#blog" class="dropbtn">Blog</a>
+          <div class="dropdown-content">
+            <a href="../blog/green_living.html"
+              ><i class="fas fa-seedling"></i> Green Living Guides</a
+            >
+            <a href="../blog/latest_sustainability.html"
+              ><i class="fas fa-newspaper"></i> Latest Sustainability News</a
+            >
+            <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+          </div>
+        </li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li>
+          <a href="../signUp/login.html" class="login-btn"
+            ><i class="fas fa-user"></i> Login</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <header class="header">
+        <div class="container">
+            <h1><i class="fas fa-leaf"></i> EcoTalk Forum</h1>
+            <p>Join the conversation on environmental sustainability</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="forum-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="stat-number">185</div>
+                <div class="stat-label">Active Discussions</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">2,738</div>
+                <div class="stat-label">Community Members</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-reply"></i>
+                </div>
+                <div class="stat-number">9,427</div>
+                <div class="stat-label">Total Responses</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active">All Discussions</div>
+            <div class="tab">Popular</div>
+            <div class="tab">Recent</div>
+            <div class="tab">My Discussions</div>
+        </div>
+        
+        <div class="discussion-list">
+            <div class="discussion-card">
+                <div class="discussion-header">
+                    <h3 class="discussion-title">How can we reduce plastic waste?</h3>
+                    <div class="discussion-actions">
+                        <i class="far fa-bookmark"></i>
+                        <i class="fas fa-share-alt" style="margin-left: 10px;"></i>
+                    </div>
+                </div>
+                
+                <div class="discussion-meta">
+                    <img src="../2nd.jpeg" alt="User profile" class="author-img">
+                    <span>Started by <strong>Jane Doe</strong> • 2 days ago</span>
+                </div>
+                
+                <div class="topic-tags">
+                    <span class="tag">Plastic waste</span>
+                    <span class="tag">Sustainability</span>
+                    <span class="tag">Recycling</span>
+                </div>
+                
+                <div class="replies">
+                    <div class="reply">
+                        <div class="reply-author">
+                            <img src="../2nd.jpeg" alt="User profile" class="author-img">
+                        </div>
+                        <div class="reply-content">
+                            <div class="reply-author-name">John</div>
+                            <div class="reply-text">Use reusable bags and bottles! I've been carrying a water bottle for the past year and it's made a huge difference in how much plastic I throw away.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="reply">
+                        <div class="reply-author">
+                            <img src="../3rd.jpeg" alt="User profile" class="author-img">
+                        </div>
+                        <div class="reply-content">
+                            <div class="reply-author-name">Emma</div>
+                            <div class="reply-text">Support brands with eco-friendly packaging. Companies respond to consumer demand, so our choices matter.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="discussion-card">
+                <div class="discussion-header">
+                    <h3 class="discussion-title">Best ways to save energy at home?</h3>
+                    <div class="discussion-actions">
+                        <i class="far fa-bookmark"></i>
+                        <i class="fas fa-share-alt" style="margin-left: 10px;"></i>
+                    </div>
+                </div>
+                
+                <div class="discussion-meta">
+                    <img src="../4th.jpeg" alt="User profile" class="author-img">
+                    <span>Started by <strong>Alex Smith</strong> • 5 days ago</span>
+                </div>
+                
+                <div class="topic-tags">
+                    <span class="tag">Energy saving</span>
+                    <span class="tag">Home</span>
+                    <span class="tag">Efficiency</span>
+                </div>
+                
+                <div class="replies">
+                    <div class="reply">
+                        <div class="reply-author">
+                            <img src="../3rd.jpeg" alt="User profile" class="author-img">
+                        </div>
+                        <div class="reply-content">
+                            <div class="reply-author-name">Chris</div>
+                            <div class="reply-text">Switch to LED bulbs and unplug devices when not in use. Smart power strips can help with managing multiple devices at once.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="discussion-card">
+                <div class="discussion-header">
+                    <h3 class="discussion-title">Local initiatives for wildlife conservation</h3>
+                    <div class="discussion-actions">
+                        <i class="far fa-bookmark"></i>
+                        <i class="fas fa-share-alt" style="margin-left: 10px;"></i>
+                    </div>
+                </div>
+                
+                <div class="discussion-meta">
+                    <img src="../2nd.jpeg" alt="User profile" class="author-img">
+                    <span>Started by <strong>Michael Johnson</strong> • 1 week ago</span>
+                </div>
+                
+                <div class="topic-tags">
+                    <span class="tag">Wildlife</span>
+                    <span class="tag">Conservation</span>
+                    <span class="tag">Local initiatives</span>
+                </div>
+                
+                <div class="replies">
+                    <div class="reply">
+                        <div class="reply-author">
+                            <img src="../3rd.jpeg" alt="User profile" class="author-img">
+                        </div>
+                        <div class="reply-content">
+                            <div class="reply-author-name">Sarah</div>
+                            <div class="reply-text">Our community has started a butterfly garden project in the local park. It's amazing how many species have returned!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="new-discussion">
+            <h3><i class="fas fa-plus-circle"></i> Start a New Discussion</h3>
+            <form>
+                <div class="form-group">
+                    <label for="topic-title" class="form-label">Title</label>
+                    <input type="text" id="topic-title" class="form-control" placeholder="Enter a clear, specific title" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="topic-description" class="form-label">Description</label>
+                    <textarea id="topic-description" class="form-control" rows="4" placeholder="Describe your topic in detail" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="topic-tags" class="form-label">Tags (comma separated)</label>
+                    <input type="text" id="topic-tags" class="form-control" placeholder="e.g. recycling, energy, conservation">
+                </div>
+                
+                <button type="submit" class="btn">Post Discussion</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About EcoSphere</h3>
+          <p>
+            EcoSphere is dedicated to promoting sustainable living through
+            educational resources, community engagement, and practical tips for
+            reducing environmental impact.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog/green_living.html">Blog</a></li>
+            <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Eco-Calculators</a></li>
+            <li><a href="#">Sustainability Guides</a></li>
+            <li><a href="#">Energy Saving Tips</a></li>
+            <li><a href="#">Zero-Waste Living</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+            </li>
+            <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

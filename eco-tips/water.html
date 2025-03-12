@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <title>Water</title>
+    <style>
+        :root {
+            --primary-color: #1b5e20;
+            --secondary-color: #388e3c;
+            --accent-color: #4caf50;
+            --light-color: #c8e6c9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .dropdown-content a {
+            color: var(--text-color);
+            padding: 12px 16px;
+            display: block;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .dropdown-content a:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .login-btn {
+            background-color: var(--primary-color);
+            color: var(--white) !important;
+            padding: 10px 20px !important;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold !important;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 50px 10% 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9fcf7;
+        }
+        
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, rgba(76,175,80,0.9) 0%, rgba(27,94,32,0.9) 100%), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+        
+        /* Wave Separator */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23f9fcf7' fill-opacity='1' d='M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,117.3C672,107,768,117,864,144C960,171,1056,213,1152,213.3C1248,213,1344,171,1392,149.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat;
+            background-size: cover;
+        }
+        
+        /* Content Sections */
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+        }
+        
+        /* Importance Section */
+        .importance {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .importance p {
+            max-width: 800px;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 220px;
+            transition: transform 0.3s ease;
+            border-top: 4px solid #4caf50;
+        }
+        
+        .stat-box:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4caf50;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-weight: 500;
+            color: #555;
+        }
+        
+        /* Tips Section */
+        .tips {
+            background: linear-gradient(to right, #f9fcf7, #e8f5e9, #f9fcf7);
+            position: relative;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .tip-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .tip-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .tip-content {
+            padding: 20px;
+        }
+        
+        .tip-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: #2e7d32;
+        }
+        
+        .tip-description {
+            color: #666;
+        }
+        
+        /* CTA Section */
+        .cta {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(27,94,32,0.05) 0%, rgba(76,175,80,0.15) 100%);
+            border-radius: 20px;
+            margin: 60px auto;
+            padding: 60px 20px;
+            max-width: 1000px;
+            position: relative;
+        }
+        
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+        }
+        
+        .cta-button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .cta-button:hover {
+            background: #2e7d32;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        /* Water Drops Animation */
+        .water-drops {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .drop {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(76, 175, 80, 0.3);
+            animation: falling linear infinite;
+        }
+        
+        @keyframes falling {
+            0% {
+                transform: translateY(-50px) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* Leaf decorations */
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%234CAF50' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E") no-repeat;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            EcoSphere
+        </div>
+        <ul class="nav-links">
+            <li class="dropdown">
+                <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+                <div class="dropdown-content">
+                    <a href="energy_saving.html"><i class="fas fa-lightbulb"></i> Energy Saving</a>
+                    <a href="food_choices.html"><i class="fas fa-carrot"></i> Sustainable Food Choices</a>
+                    <a href="zero_waste.html"><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a>
+                    <a href="water.html"><i class="fas fa-tint"></i> Water Conservation</a>
+                    <a href="Transportation.html"><i class="fas fa-bicycle"></i> Eco-Friendly
+                        Transportation</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="market_space/marketSpace.html" class="dropbtn">Zero-Waste Marketplace</a>
+                <div class="dropdown-content">
+                    <a href="../market_space/kitchen.html"><i class="fas fa-utensils"></i> Reusable Kitchen Products</a>
+                    <a href="../market_space/fashion.html"><i class="fas fa-tshirt"></i> Sustainable Fashion</a>
+                    <a href="../market_space/cleaning.html"><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+                        Supplies</a>
+                    <a href="../market_space/solar.html"><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#community" class="dropbtn">Community</a>
+                <div class="dropdown-content">
+                    <a href="../community/discussion_forum.html"><i class="fas fa-comments"></i> Discussion Forum</a>
+                    <a href="../community/eco_challanges.html"><i class="fas fa-trophy"></i> User Eco-Challenges</a>
+                    <a href="../community/Events _Webinars.html"><i class="fas fa-star"></i> Success Stories</a>
+                    <a href="../community/Events _Webinars.html"><i class="fas fa-calendar-alt"></i> Events & Webinars</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a href="#blog" class="dropbtn">Blog</a>
+                <div class="dropdown-content">
+                    <a href="../blog/green_living.html"><i class="fas fa-seedling"></i> Green Living Guides</a>
+                    <a href="../blog/latest_sustainability.html"><i class="fas fa-newspaper"></i> Latest Sustainability News</a>
+                    <a href="../blog/DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+                </div>
+            </li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li>
+                <a href="../signUp/login.html" class="login-btn"><i class="fas fa-user"></i> Login</a>
+            </li>
+        </ul>
+    </nav>
+    <header class="header">
+        <h1>Water Conservation: Save Every Drop</h1>
+        <p>Learn how you can contribute to saving water and protecting our planet for future generations.</p>
+        <div class="wave"></div>
+    </header>
+    
+    <section class="importance">
+        <h2>Why Water Conservation Matters</h2>
+        <p>Water is our most precious resource, essential for all life on Earth. By conserving water, we help maintain natural ecosystems, reduce utility bills, and ensure clean water availability for future generations.</p>
+        
+        <div class="stats-container">
+            <div class="stat-box">
+                <div class="stat-number">71%</div>
+                <div class="stat-label">Of Earth's surface is water, but only 3% is freshwater</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4,000</div>
+                <div class="stat-label">Gallons of water saved yearly by fixing a leaky faucet</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">2.7B</div>
+                <div class="stat-label">People affected by water scarcity worldwide</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="tips">
+        <div class="leaf" style="top: 50px; left: 5%; transform: rotate(45deg);"></div>
+        <div class="leaf" style="top: 150px; right: 8%; transform: rotate(-20deg);"></div>
+        <div class="leaf" style="bottom: 100px; left: 12%; transform: rotate(70deg);"></div>
+        
+        <h2>Easy Ways to Save Water</h2>
+        
+        <div class="tips-grid">
+            <div class="tip-card">
+                <img src="images/lap.jpg" alt="Turn off tap while brushing" class="tip-img">
+                <div class="tip-content">
+                    <div class="tip-title">Turn Off the Tap</div>
+                    <p class="tip-description">Turning off the tap while brushing your teeth can save up to 8 gallons of water per day. That's over 200 gallons per month!</p>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <img src="images/leake.jpg" alt="Fix leaking faucets" class="tip-img">
+                <div class="tip-content">
+                    <div class="tip-title">Fix Those Leaks</div>
+                    <p class="tip-description">A single dripping faucet can waste up to 20 gallons per day. Regularly check and fix leaks throughout your home.</p>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <img src="images/dish.jpg" alt="Water efficient appliances" class="tip-img">
+                <div class="tip-content">
+                    <div class="tip-title">Efficient Appliances</div>
+                    <p class="tip-description">Water-efficient dishwashers use as little as 3 gallons per cycle, compared to 27 gallons when washing by hand.</p>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <img src="images/haresting.jpg" alt="Rainwater harvesting" class="tip-img">
+                <div class="tip-content">
+                    <div class="tip-title">Harvest Rainwater</div>
+                    <p class="tip-description">Collecting rainwater from your roof can provide free water for your garden and reduce stormwater runoff.</p>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <img src="images/plants.jpg" alt="Drought-resistant plants" class="tip-img">
+                <div class="tip-content">
+                    <div class="tip-title">Drought-Resistant Plants</div>
+                    <p class="tip-description">Native and drought-resistant plants can reduce landscape water use by 50-75% while still creating beautiful gardens.</p>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <img src="images/shower.jpg" alt="Shorter showers" class="tip-img">
+                <div class="tip-content">
+                    <div class="tip-title">Shorter Showers</div>
+                    <p class="tip-description">Cutting your shower time by just two minutes can save over 150 gallons of water per month per person.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta">
+        <div class="water-drops">
+            <div class="drop" style="left:10%; animation-duration: 5s; animation-delay: 1s;"></div>
+            <div class="drop" style="left:35%; animation-duration: 7s; animation-delay: 0s;"></div>
+            <div class="drop" style="left:65%; animation-duration: 6s; animation-delay: 2s;"></div>
+            <div class="drop" style="left:85%; animation-duration: 8s; animation-delay: 1.5s;"></div>
+        </div>
+        
+        <h2>Join the Water Conservation Movement</h2>
+        <p>Every drop counts. Take small steps today to create a sustainable future for all. Pledge to save water daily and spread awareness in your community.</p>
+        <button class="cta-button">Take the Pledge</button>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About EcoSphere</h3>
+                <p>
+                    EcoSphere is dedicated to promoting sustainable living through
+                    educational resources, community engagement, and practical tips for
+                    reducing environmental impact.
+                </p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../blog/green_living.html">Blog</a></li>
+                    <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Eco-Calculators</a></li>
+                    <li><a href="#">Sustainability Guides</a></li>
+                    <li><a href="#">Energy Saving Tips</a></li>
+                    <li><a href="#">Zero-Waste Living</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+                    </li>
+                    <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

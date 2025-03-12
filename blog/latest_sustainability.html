@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latest Sustainability News</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+        :root {
+            --primary-color: #1B5E20;
+            --secondary-color: #388E3C;
+            --accent-color: #4CAF50;
+            --light-color: #C8E6C9;
+            --dark-color: #033605;
+            --text-color: #333;
+            --text-light: #666;
+            --white: #fff;
+        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: var(--text-color);
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar styles */
+      .navbar {
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 15px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        color: var(--primary-color);
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        color: var(--accent-color);
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-links li {
+        position: relative;
+      }
+
+      .nav-links a {
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 10px 15px;
+        display: block;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--primary-color);
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: var(--white);
+        min-width: 220px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        z-index: 1;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        overflow: hidden;
+      }
+
+      .dropdown-content a {
+        color: var(--text-color);
+        padding: 12px 16px;
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .dropdown-content a:hover {
+        background-color: var(--light-color);
+        color: var(--primary-color);
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .login-btn {
+        background-color: var(--primary-color);
+        color: var(--white) !important;
+        padding: 10px 20px !important;
+        text-decoration: none;
+        border-radius: 30px;
+        font-weight: bold !important;
+        transition: all 0.3s ease;
+        margin-left: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .login-btn:hover {
+        background-color: var(--dark-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+      footer {
+        background-color: var(--dark-color);
+        color: var(--white);
+        padding: 50px 10% 20px;
+      }
+
+      .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent-color);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent-color);
+        padding-left: 5px;
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        background-color: var(--accent-color);
+        transform: translateY(-3px);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .header {
+        background-color: #2E7D32;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .header h1 {
+        margin: 0;
+        font-size: 2.2rem;
+    }
+    .subtitle {
+        font-style: italic;
+        opacity: 0.9;
+        margin-top: 5px;
+    }
+    .news-container {
+        max-width: 900px;
+        margin: 30px auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+    .news-item {
+        display: flex;
+        border-bottom: 1px solid #eee;
+        transition: all 0.3s ease;
+    }
+    .news-item:hover {
+        background-color: #f8f8f8;
+    }
+    .news-item:last-child {
+        border-bottom: none;
+    }
+    .news-image {
+        width: 180px;
+        height: 140px;
+        overflow: hidden;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #eee;
+    }
+    .news-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .news-content {
+        padding: 15px 20px;
+        flex-grow: 1;
+    }
+    .news-item h3 {
+        margin: 0 0 8px 0;
+        color: #2E7D32;
+        font-size: 1.4rem;
+    }
+    .news-item p {
+        margin: 0 0 10px 0;
+        color: #555;
+        line-height: 1.5;
+    }
+    .date {
+        font-size: 0.85rem;
+        color: #888;
+        display: block;
+        margin-top: 10px;
+    }
+    .read-more {
+        display: inline-block;
+        color: #2E7D32;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+    }
+    .read-more:hover {
+        color: #1b5e20;
+        text-decoration: underline;
+    }
+    .footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #2E7D32;
+        color: rgba(255,255,255,0.8);
+        font-size: 0.9rem;
+    }
+    .subscribe-btn {
+        background-color: #2E7D32;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.2s;
+    }
+    .subscribe-btn:hover {
+        background-color: #1b5e20;
+    }
+    .subscribe-container {
+        text-align: center;
+        padding: 20px;
+        background-color: #f0f7f0;
+        border-top: 1px solid #e0e0e0;
+    }
+      
+    </style>
+
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <i class="fas fa-leaf"></i>
+        EcoSphere
+      </div>
+      <ul class="nav-links">
+        <li class="dropdown">
+          <a href="#eco-tips" class="dropbtn">Eco-Tips</a>
+          <div class="dropdown-content">
+            <a href="../eco-tips/energy_saving.html"
+              ><i class="fas fa-lightbulb"></i> Energy Saving</a
+            >
+            <a href="../eco-tips/food_choices.html"
+              ><i class="fas fa-carrot"></i> Sustainable Food Choices</a
+            >
+            <a href="../eco-tips/zero_waste.html"
+              ><i class="fas fa-recycle"></i> Zero-Waste Lifestyle</a
+            >
+            <a href="../eco-tips/water.html"
+              ><i class="fas fa-tint"></i> Water Conservation</a
+            >
+            <a href="../eco-tips/Transportation.html"
+              ><i class="fas fa-bicycle"></i> Eco-Friendly Transportation</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="market_space/marketSpace.html" class="dropbtn"
+            >Zero-Waste Marketplace</a
+          >
+          <div class="dropdown-content">
+            <a href="../market_space/kitchen.html"
+              ><i class="fas fa-utensils"></i> Reusable Kitchen Products</a
+            >
+            <a href="../market_space/fashion.html"
+              ><i class="fas fa-tshirt"></i> Sustainable Fashion</a
+            >
+            <a href="../market_space/cleaning.html"
+              ><i class="fas fa-spray-can"></i> Eco-Friendly Cleaning
+              Supplies</a
+            >
+            <a href="../market_space/solar.html"
+              ><i class="fas fa-solar-panel"></i> Solar-Powered Gadgets</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#community" class="dropbtn">Community</a>
+          <div class="dropdown-content">
+            <a href="../community/discussion_forum.html"
+              ><i class="fas fa-comments"></i> Discussion Forum</a
+            >
+            <a href="../community/eco_challanges.html"
+              ><i class="fas fa-trophy"></i> User Eco-Challenges</a
+            >
+            <a href="../community/success_stories.html"><i class="fas fa-star"></i> Success Stories</a>
+            <a href="../community/Events _Webinars.html"
+              ><i class="fas fa-calendar-alt"></i> Events & Webinars</a
+            >
+          </div>
+        </li>
+        <li class="dropdown">
+          <a href="#blog" class="dropbtn">Blog</a>
+          <div class="dropdown-content">
+            <a href="green_living.html"
+              ><i class="fas fa-seedling"></i> Green Living Guides</a
+            >
+            <a href="latest_sustainability.html"
+              ><i class="fas fa-newspaper"></i> Latest Sustainability News</a
+            >
+            <a href="DIY_eco.html"><i class="fas fa-tools"></i> DIY Eco Projects</a>
+          </div>
+        </li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li>
+          <a href="../signUp/login.html" class="login-btn"
+            ><i class="fas fa-user"></i> Login</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <div class="header">
+        <h1>EcoWatch</h1>
+        <div class="subtitle">Tracking Sustainability Worldwide</div>
+    </div>
+    
+    <div class="news-container">
+        <div class="news-item">
+            <div class="news-image">
+                <img src="solar_farm.jpg" alt="Solar and wind farm" />
+            </div>
+            <div class="news-content">
+                <h3>Global Push for Renewable Energy</h3>
+                <p>Countries around the world are dramatically increasing investments in solar and wind energy infrastructure as part of ambitious climate goals. The International Energy Agency reports a 25% rise in renewable energy installations compared to last year.</p>
+                <span class="date">March 7, 2025</span>
+                <a href="#" class="read-more">Read full article →</a>
+            </div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-image">
+                <img src="plastic.jpg" alt="Plastic waste on beach" />
+            </div>
+            <div class="news-content">
+                <h3>New Plastic Ban Laws Introduced</h3>
+                <p>Several nations have introduced strict regulations to eliminate single-use plastics and promote sustainable packaging alternatives. Industry leaders are responding with innovative biodegradable materials and improved recycling systems.</p>
+                <span class="date">March 5, 2025</span>
+                <a href="#" class="read-more">Read full article →</a>
+            </div>
+        </div>
+        
+        <div class="news-item">
+            <div class="news-image">
+                <img src="farm.jpg" alt="Sustainable farming techniques" />
+            </div>
+            <div class="news-content">
+                <h3>Breakthrough in Sustainable Agriculture</h3>
+                <p>Researchers at the Global Agriculture Institute have developed a new technique to reduce water usage by up to 40% while increasing crop yields in drought-prone regions. The method combines precision irrigation with drought-resistant crop varieties.</p>
+                <span class="date">March 3, 2025</span>
+                <a href="#" class="read-more">Read full article →</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="subscribe-container">
+        <h3>Stay Informed on Sustainability News</h3>
+        <p>Get weekly updates delivered directly to your inbox</p>
+        <button class="subscribe-btn">Subscribe to Newsletter</button>
+    </div>
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>About EcoSphere</h3>
+          <p>
+            EcoSphere is dedicated to promoting sustainable living through
+            educational resources, community engagement, and practical tips for
+            reducing environmental impact.
+          </p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../blog/green_living.html">Blog</a></li>
+            <li><a href="../market_space/kitchen.html">Marketplace</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Resources</h3>
+          <ul>
+            <li><a href="#">Eco-Calculators</a></li>
+            <li><a href="#">Sustainability Guides</a></li>
+            <li><a href="#">Energy Saving Tips</a></li>
+            <li><a href="#">Zero-Waste Living</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>
+              <i class="fas fa-map-marker-alt"></i> 123 Green Street, Eco City
+            </li>
+            <li><i class="fas fa-phone"></i> (555) 123-4567</li>
+            <li><i class="fas fa-envelope"></i> info@ecosphere.com</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
